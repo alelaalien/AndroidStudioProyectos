@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_gallery">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.aletp.ui.Propiedades.PropiedadesFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="com.example.aletp.ui.Inquilinos.InquilinosFragment"
+        android:label="@string/menu_gallery"
+        tools:layout="@layout/fragment_inquilinos" />
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.example.aletp.ui.Contratos.ContratosFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_contratos" />
+
+    <fragment
+        android:id="@+id/nav_tools"
+        android:name="com.example.aletp.ui.Pagos.PagosFragment"
+        android:label="@string/menu_tools"
+        tools:layout="@layout/fragment_pagos" />
+
+    <fragment
+        android:id="@+id/nav_share"
+        android:name="com.example.aletp.ui.Perfil.PerfilFragment"
+        android:label="@string/menu_share"
+        tools:layout="@layout/fragment_perfil" />
+
+    <fragment
+        android:id="@+id/nav_send"
+        android:name="com.example.aletp.ui.send.SendFragment"
+
+        tools:layout="@layout/fragment_send" />
+</navigation>

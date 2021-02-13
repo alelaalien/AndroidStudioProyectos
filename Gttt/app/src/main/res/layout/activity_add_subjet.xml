@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddSubjetActivity">
+
+    <TextView
+        android:id="@+id/tv_title_subjet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlack"
+        android:fontFamily="@font/habibi"
+        android:textAlignment="center"
+        android:textColor="@color/colorGold"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_subjet">
+
+        <LinearLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#C9F3EEEE"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <EditText
+                android:id="@+id/etnombremateria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+
+                android:layout_marginEnd="20dp"
+                android:ems="10"
+                android:fontFamily="@font/habibi"
+                android:hint="@string/nombrep"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="89dp"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spindia"
+                    style="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/colorDark"
+                    android:entries="@array/week"
+                    android:fontFamily="@font/habibi"
+                    android:scrollbarStyle="insideOverlay"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_conversion_absoluteHeight="50dp"
+                    tools:layout_conversion_absoluteWidth="150dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tvempty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center" />
+<!--                android:textColor="@color/design_default_color_error" -->
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ListView
+                    android:id="@+id/listdias"
+                    android:layout_width="271dp"
+                    android:layout_height="370dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toStartOf="@+id/btndls"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/btnendtime"
+                    app:layout_constraintTop_toBottomOf="@+id/cbhc" />
+
+                <Button
+                    android:id="@+id/btnendtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/colorGray"
+                    android:fontFamily="@font/habibi"
+                    android:text="@string/Fin_"
+                    android:textColor="@color/colorGold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnstarttime" />
+
+                <EditText
+                    android:id="@+id/etet"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:ems="10"
+                    android:fontFamily="@font/habibi"
+                    android:inputType="textPersonName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/btnstarttime"
+                    app:layout_constraintTop_toBottomOf="@+id/etst" />
+
+                <Button
+                    android:id="@+id/btnstarttime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:background="@color/colorGray"
+                    android:fontFamily="@font/habibi"
+                    android:text="@string/Inicio_"
+                    android:textColor="@color/colorGold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/etst"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="20dp"
+                    android:ems="10"
+                    android:fontFamily="@font/habibi"
+                    android:inputType="textPersonName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.887"
+                    app:layout_constraintStart_toEndOf="@+id/btnstarttime"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnaddtime"
+                    android:layout_width="145dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/colorGray"
+                    android:fontFamily="@font/habibi"
+                    android:text="@string/Agregar"
+                    android:textColor="@color/colorGold"
+                    app:layout_constraintEnd_toEndOf="@+id/etet"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/cbhc"
+                    app:layout_constraintTop_toBottomOf="@+id/etet" />
+
+                <Button
+                    android:id="@+id/btndls"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="92dp"
+                    android:background="@color/colorGray"
+                    android:fontFamily="@font/habibi"
+                    android:text="@string/borrar"
+                    android:textColor="@color/colorGold"
+                    app:layout_constraintEnd_toEndOf="@+id/etet"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/btnendtime"
+                    app:layout_constraintTop_toBottomOf="@+id/btnaddtime" />
+
+
+                <CheckBox
+                    android:id="@+id/cbhc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/consultas"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="@+id/btnendtime"
+                    app:layout_constraintTop_toBottomOf="@+id/btnendtime" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btncancelarmateria"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/colorGray"
+        android:fontFamily="@font/habibi"
+        android:text="@string/cancelar"
+        android:textAlignment="center"
+        android:textColor="@color/colorGold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="24dp"
+        android:background="@color/colorBlack"
+        android:backgroundTint="@color/colorBlack"
+        android:fontFamily="@font/habibi"
+        android:text="@string/guardar"
+        android:textAlignment="center"
+        android:textColor="@color/colorGold"
+        app:layout_constraintBottom_toTopOf="@+id/btncancelarmateria"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btndeletesubjet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="24dp"
+        android:background="@color/colorBlack"
+        android:backgroundTint="@color/colorBlack"
+        android:fontFamily="@font/habibi"
+        android:text="@string/guardar"
+        android:textAlignment="center"
+        android:textColor="@color/colorGold"
+        app:layout_constraintBottom_toTopOf="@+id/btnas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

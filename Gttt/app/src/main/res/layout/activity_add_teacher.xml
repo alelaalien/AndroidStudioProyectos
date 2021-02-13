@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddTeacherActivity">
+
+
+    <TextView
+        android:id="@+id/idediciondoc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlack"
+        android:fontFamily="@font/habibi"
+        android:text="@string/nuevodocente"
+        android:textAlignment="center"
+        android:textColor="@color/colorGold"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:background="#A9FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idediciondoc">
+
+        <EditText
+            android:id="@+id/etnuevodocentenombre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="20dp"
+            android:ems="10"
+            android:fontFamily="@font/habibi"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/etnuevodocenteapellido"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="19dp"
+            android:ems="10"
+            android:fontFamily="@font/habibi"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/etnuevodocentenombre"
+            app:layout_constraintTop_toBottomOf="@+id/etnuevodocentenombre" />
+
+        <EditText
+            android:id="@+id/etnuevodocentealias"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:ems="10"
+            android:fontFamily="@font/habibi"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/etnuevodocenteapellido"
+            app:layout_constraintTop_toBottomOf="@+id/etnuevodocenteapellido" />
+
+        <EditText
+            android:id="@+id/etnuevodocentetelefono"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:ems="10"
+            android:fontFamily="@font/habibi"
+            android:inputType="phone"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/etnuevodocenteapellido"
+            app:layout_constraintTop_toBottomOf="@+id/etnuevodocentealias" />
+
+        <EditText
+            android:id="@+id/etnuevodocenteemail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:ems="10"
+            android:fontFamily="@font/habibi"
+            android:inputType="textEmailAddress"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/etnuevodocentetelefono"
+            app:layout_constraintTop_toBottomOf="@+id/etnuevodocentetelefono" />
+
+        <TextView
+            android:id="@+id/tviddedicion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/habibi"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/etast"
+            android:layout_width="215dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="32dp"
+            android:ems="10"
+            android:fontFamily="@font/habibi"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toStartOf="@+id/btnaddst"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/etnuevodocenteemail"
+            app:layout_constraintTop_toBottomOf="@+id/etnuevodocenteemail" />
+
+        <Button
+            android:id="@+id/btnaddst"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@color/colorGray"
+            android:backgroundTint="@color/colorGray"
+            android:fontFamily="@font/habibi"
+            android:text="@string/Agregar"
+            android:textColor="@color/colorGold"
+            android:textColorHint="@color/colorGold"
+            app:layout_constraintEnd_toEndOf="@+id/etnuevodocenteemail"
+            app:layout_constraintTop_toBottomOf="@+id/etnuevodocenteemail" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="94dp"
+            android:fontFamily="@font/habibi"
+            android:text="@string/nombre_"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="42dp"
+            android:fontFamily="@font/habibi"
+            android:text="@string/apellido_"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="42dp"
+            android:fontFamily="@font/habibi"
+            android:text="@string/Nick_"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/habibi"
+            android:text="@string/telefonodoc_"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/textView6"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/habibi"
+            android:text="@string/email_"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/textView7"
+            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/habibi"
+            android:text="@string/dicta_"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/textView8"
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="0dp"
+        android:layout_height="404dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+        <ScrollView
+            android:layout_width="422dp"
+            android:layout_height="368dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.212"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvdicta"
+                    android:layout_width="420dp"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btncancelardocenteedicion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/colorGray"
+        android:fontFamily="@font/habibi"
+        android:shadowColor="@color/colorGold"
+        android:text="@string/cancelar"
+        android:textColor="@color/colorGold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnguardardocenteedicion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/colorBlack"
+        android:fontFamily="@font/habibi"
+        android:hint="@string/guardar"
+        android:shadowColor="@color/colorGold"
+        android:text="@string/guardar"
+        android:textColor="@color/colorGold"
+        app:layout_constraintBottom_toTopOf="@+id/btncancelardocenteedicion"
+        app:layout_constraintEnd_toEndOf="@+id/btncancelardocenteedicion"
+        app:layout_constraintStart_toStartOf="@+id/btncancelardocenteedicion"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

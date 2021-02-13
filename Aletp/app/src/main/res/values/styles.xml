@@ -1,0 +1,102 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    -<style parent="@style/Theme.AppCompat" name="Theme.Example">
+
+    <item name="popupMenuStyle">@style/PopupMenu.Example</item>
+
+    <item name="dropDownListViewStyle">@style/DropDownListView.Example</item>
+
+    <item name="actionBarTabStyle">@style/ActionBarTabStyle.Example</item>
+
+    <item name="actionDropDownStyle">@style/DropDownNav.Example</item>
+
+    <item name="actionBarStyle">@style/ActionBar.Solid.Example</item>
+
+
+
+    <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Example</item>
+
+</style>
+
+
+    -<style parent="@style/Widget.AppCompat.ActionBar.Solid" name="ActionBar.Solid.Example">
+
+
+
+    <item name="progressBarStyle">@style/ProgressBar.Example</item>
+
+</style>
+
+
+    -<style parent="@style/Widget.AppCompat.ActionBar" name="ActionBar.Transparent.Example">
+
+
+
+    <item name="progressBarStyle">@style/ProgressBar.Example</item>
+
+</style>
+
+
+    -<style parent="@style/Widget.AppCompat.PopupMenu" name="PopupMenu.Example">
+
+
+</style>
+
+
+    -<style parent="@style/Widget.AppCompat.ListView.DropDown" name="DropDownListView.Example">
+
+
+</style>
+
+
+    -<style parent="@style/Widget.AppCompat.ActionBar.TabView" name="ActionBarTabStyle.Example">
+
+
+</style>
+
+
+    -<style parent="@style/Widget.AppCompat.Spinner.DropDown.ActionBar" name="DropDownNav.Example">
+
+</style>
+
+
+    -<style parent="@style/Widget.AppCompat.ProgressBar.Horizontal" name="ProgressBar.Example">
+
+
+</style>
+
+
+    -<style parent="@style/Widget.AppCompat.ActionButton.CloseMode" name="ActionButton.CloseMode.Example">
+
+
+</style>
+
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+
+
+
+    -<style parent="@style/Theme.AppCompat" name="Theme.Example.Widget">
+
+    <item name="popupMenuStyle">@style/PopupMenu.Example</item>
+
+    <item name="dropDownListViewStyle">@style/DropDownListView.Example</item>
+
+</style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>

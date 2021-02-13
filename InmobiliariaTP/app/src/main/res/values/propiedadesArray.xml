@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="propiedades">
+        <item>Seleccionar</item>
+        <item>AvenidaEspaña103</item>
+        <item>Colon116</item>
+        <item>Rivadavia142</item>
+        <item>SanMartin96</item>
+        <item>Pringles71</item>
+    </string-array>
+    <string-array name="AvenidaEspaña103">
+        <item>Inicio</item>
+
+        <item>01/09/2019</item>
+        <item>Finalizacion</item>
+        <item>01/03/2020</item>
+        <item>Valor</item>
+        <item>$2500</item>
+</string-array>
+    <string-array name="Colon116">
+        <item>1</item>
+        <item>Departamento</item>
+        <item>Vivienda</item>
+        <item>$5000</item>
+        <item>false</item>
+    </string-array>
+    <string-array name="SanMartin96">
+        <item>1</item>
+        <item>Local</item>
+        <item>Local</item>
+        <item>$15000</item>
+        <item>false</item>
+    </string-array>
+    <string-array name="Rivadavia142">
+        <item>1</item>
+        <item>Local</item>
+        <item>Local</item>
+        <item>$20000</item>
+        <item>true</item>
+    </string-array>
+    <string-array name="Pringles71">
+        <item>Inicio</item>
+
+        <item>01/05/2018</item>
+        <item>Finalizacion</item>
+        <item>01/05/2021</item>
+        <item>Valor</item>
+        <item>$8500</item>
+    </string-array>
+    <string-array name="propiedadesPrueba">
+        <item>Seleccionar</item>
+        <item>AvenidaEspaña103</item>
+
+        <item>Pringles71</item>
+    </string-array>
+
+
+</resources>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorWhite"
+    tools:context=".fragments.EventFragment">
+
+    <RelativeLayout
+        android:id="@+id/relativemat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ScrollView
+            android:layout_width="314dp"
+            android:layout_height="379dp"
+            android:layout_below="@+id/toggleButton"
+
+            android:layout_alignEnd="@+id/toggleButton"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="11dp">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvmateriasrv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </ScrollView>
+
+
+
+        <RadioButton
+            android:id="@+id/radioButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView24"
+            android:layout_alignStart="@+id/textView24"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/palta" />
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="67dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/Prioridad"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/radioButton5"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView24"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
+            android:layout_toEndOf="@+id/radioButton4"
+            android:text="@string/pmedia" />
+
+        <RadioButton
+            android:id="@+id/radioButton6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView24"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="56dp"
+            android:layout_toEndOf="@+id/radioButton5"
+            android:text="@string/pbaja" />
+
+        <TextView
+            android:id="@+id/textView34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/radioButton4"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/Materia_" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView34"
+            android:layout_alignStart="@+id/radioButton4"
+            android:layout_alignEnd="@+id/radioButton6"
+            android:layout_marginTop="15dp"
+            android:background="@color/colorDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView36"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinner"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/claseevento_" />
+
+        <ToggleButton
+            android:id="@+id/toggleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinner"
+            android:layout_alignEnd="@+id/spinner"
+            android:layout_marginStart="33dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="0dp"
+            android:layout_toEndOf="@+id/textView36"
+            android:fontFamily="@font/habibi"
+            android:textOff="@string/etp"
+            android:textOn="@string/Tpracticos" />
+
+
+
+
+    </RelativeLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginBottom="4dp"
+        android:id="@+id/fab_event"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_input_add" />
+</FrameLayout>

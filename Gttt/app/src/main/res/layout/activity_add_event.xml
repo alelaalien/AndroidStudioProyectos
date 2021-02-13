@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddEventActivity">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="0dp"
+
+        android:layout_height="51dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView35"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBlack"
+            android:fontFamily="@font/habibi"
+            android:text="@string/nuevoevento"
+            android:textAlignment="center"
+            android:textColor="@color/colorGold"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+        app:layout_constraintVertical_bias="0.043">
+
+        <TextView
+            android:id="@+id/textView37"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/habibi"
+            android:text="@string/Clase_"
+            android:textColor="#090606"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ToggleButton
+            android:id="@+id/togglenuevoevento"
+            android:layout_width="244dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/habibi"
+            android:textOff="@string/Examenes"
+            android:textOn="@string/Tpracticos"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.936"
+            app:layout_constraintStart_toEndOf="@+id/textView37"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView39"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/habibi"
+            android:text="@string/Prioridad"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/textView37"
+            app:layout_constraintTop_toBottomOf="@+id/textView37" />
+
+        <RadioGroup
+            android:id="@+id/rgeventonuevo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/togglenuevoevento"
+            app:layout_constraintStart_toStartOf="@+id/togglenuevoevento"
+            app:layout_constraintTop_toBottomOf="@+id/togglenuevoevento">
+
+            <RadioButton
+                android:id="@+id/rbaltanuevoevento"
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/habibi"
+                android:text="@string/palta" />
+
+            <RadioButton
+                android:id="@+id/rbmedianuevoevento"
+                android:layout_width="12dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/habibi"
+                android:text="@string/pmedia" />
+
+            <RadioButton
+                android:id="@+id/rbbajanuevoevento"
+                android:layout_width="12dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/habibi"
+                android:text="@string/pbaja" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/textView40"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/habibi"
+            android:text="@string/Materia_"
+            android:textColor="#090606"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/textView39"
+            app:layout_constraintTop_toBottomOf="@+id/textView39" />
+
+        <Spinner
+            android:id="@+id/spinnuevoevento"
+            android:layout_width="219dp"
+            android:layout_height="23dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/rgeventonuevo"
+            app:layout_constraintHorizontal_bias="0.063"
+            app:layout_constraintStart_toStartOf="@+id/rgeventonuevo"
+            app:layout_constraintTop_toBottomOf="@+id/rgeventonuevo" />
+
+        <EditText
+            android:id="@+id/etfecha"
+            android:layout_width="219dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:fontFamily="@font/habibi"
+            android:inputType="date"
+            app:layout_constraintEnd_toEndOf="@+id/spinnuevoevento"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/spinnuevoevento"
+            app:layout_constraintTop_toBottomOf="@+id/spinnuevoevento" />
+
+        <Button
+            android:id="@+id/btnfecha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorGray"
+            android:fontFamily="@font/habibi"
+            android:text="@string/fecha_"
+            android:textColor="@color/colorGold"
+            app:layout_constraintStart_toStartOf="@+id/textView40"
+            app:layout_constraintTop_toBottomOf="@+id/textView40" />
+
+        <Button
+            android:id="@+id/btnhora"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorGray"
+            android:fontFamily="@font/habibi"
+            android:text="@string/Hora_"
+            android:textColor="@color/colorGold"
+            app:layout_constraintStart_toStartOf="@+id/btnfecha"
+            app:layout_constraintTop_toBottomOf="@+id/btnfecha" />
+
+        <EditText
+            android:id="@+id/ethora"
+            android:layout_width="219dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:fontFamily="@font/habibi"
+            android:inputType="time"
+            app:layout_constraintEnd_toEndOf="@+id/etfecha"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/etfecha"
+            app:layout_constraintTop_toBottomOf="@+id/etfecha" />
+
+        <TextView
+            android:id="@+id/textView46"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/habibi"
+            android:text="@string/temario_"
+            android:textColor="#090606"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/ettemarionuevoevento"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnhora" />
+
+        <EditText
+            android:id="@+id/ettemarionuevoevento"
+            android:layout_width="219dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:fontFamily="@font/habibi"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="@+id/ethora"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/ethora"
+            app:layout_constraintTop_toBottomOf="@+id/ethora" />
+
+        <TextView
+            android:id="@+id/textView48"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/habibi"
+            android:text="@string/Descripcion_"
+            android:textColor="#090606"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/etdescripcionnuevoevento"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView46" />
+
+        <EditText
+            android:id="@+id/etdescripcionnuevoevento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/habibi"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="@+id/ettemarionuevoevento"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toStartOf="@+id/ettemarionuevoevento"
+            app:layout_constraintTop_toBottomOf="@+id/ettemarionuevoevento" />
+
+        <Button
+            android:id="@+id/btnguardarnuevoevento"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/colorBlack"
+            android:fontFamily="@font/habibi"
+            android:text="@string/guardar"
+            android:textColor="@color/colorGold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etdescripcionnuevoevento" />
+
+        <Button
+            android:id="@+id/btncancelarnuevoevento"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@color/colorGray"
+            android:fontFamily="@font/habibi"
+            android:text="@string/cancelar"
+            android:textColor="@color/colorGold"
+            app:layout_constraintEnd_toEndOf="@+id/btnguardarnuevoevento"
+            app:layout_constraintStart_toStartOf="@+id/btnguardarnuevoevento"
+            app:layout_constraintTop_toBottomOf="@+id/btnguardarnuevoevento" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
