@@ -43,4 +43,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         return 4;
     }
+    public  void  SetCurrent(int i){
+
+    }
 }

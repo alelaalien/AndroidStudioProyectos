@@ -27,7 +27,7 @@
             android:fontFamily="@font/habibi"
             android:text="@string/MisDatos"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorGold"
             android:textColorHint="@color/colorAccent"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -125,10 +125,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorDark"
             android:fontFamily="@font/habibi"
             android:text="@string/aceptar"
             android:textAlignment="center"
+            android:textColor="@color/colorAccent"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -137,10 +138,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorDark"
             android:fontFamily="@font/habibi"
             android:text="@string/cancelar"
             android:textAlignment="center"
+            android:textColor="@color/colorAccent"
             android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>

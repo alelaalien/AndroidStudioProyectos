@@ -110,9 +110,15 @@ public class SubjetFragment extends Fragment {
 
                 id_sub = String.valueOf(viewAll.get(position).getId());
                 hour = viewAll.get(position).getClass_();
-                Log.d("edicion", name+" "+id_sub+" "+hour);
                 data.add(name);
                 data.add(id_sub);
+                if (hour!=null){
+                    data.add(hour);
+                }else{
+                    data.add("");
+                }
+                Log.d("edicion", name+" "+id_sub+" "+hour);
+
                 data.add(hour);
 
                 Intent i = new Intent(getContext(), AddSubjetActivity.class);

@@ -26,9 +26,18 @@ public class Teacher {
     @SerializedName("email")
     @Expose
     private String email;
-    @SerializedName("notes")
+    @SerializedName("idUser")
     @Expose
-    private String notes;
+    private Integer idUser;
+
+    public Integer getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
+    }
+
 
     public Integer getId() {
         return id;
@@ -86,12 +95,6 @@ public class Teacher {
         this.email = email;
     }
 
-    public String getNotes() {
-        return notes;
-    }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
 
 }

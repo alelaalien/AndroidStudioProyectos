@@ -5,16 +5,30 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.ale.gttt.AddTeacherActivity;
+import com.ale.gttt.Interfaces.ISSubjet;
+import com.ale.gttt.Interfaces.ISTeacher;
 import com.ale.gttt.R;
+import com.ale.gttt.Session.SharedPreferenceManager;
+import com.ale.gttt.entities.Subjet;
+import com.ale.gttt.entities.Teacher;
+import com.ale.gttt.io.ServiceBA;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class TeacherFragment extends Fragment {
@@ -30,15 +44,15 @@ public class TeacherFragment extends Fragment {
 
     }
 
-//
-//    public static TeacherFragment newInstance(String param1, String param2) {
-//        TeacherFragment fragment = new TeacherFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
+
+    public static TeacherFragment newInstance(String param1, String param2) {
+        TeacherFragment fragment = new TeacherFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -96,4 +110,50 @@ public class TeacherFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+//    private void GetAll() {
+//        viewAll = new ArrayList<>();
+//        int id = SharedPreferenceManager.getInstance(getContext()).GetUser().getId();
+//
+//        Call<ArrayList<Teacher>> call;
+//
+//        call = ServiceBA.getInstance().createService(ISTeacher.class).GetAll(id);
+//
+//        call.enqueue(new Callback<ArrayList<Teacher>>() {
+//            @Override
+//            public void onResponse(Call<ArrayList<Teacher>> call, Response<ArrayList<Teacher>> response) {
+//                if (response.code() == 200) {
+//
+//                    try {
+//                        viewAll.addAll(response.body());
+//                        ShowAll(viewAll, 0);
+//
+//                    } catch (Exception e) {
+//                    }
+//
+//                } else if (response.code() == 404) {
+//                    Toast.makeText(getContext(), "Recursos no encontrados", Toast.LENGTH_LONG).show();
+//                    Log.d("teacher", "Recursos no encontrados");
+//
+//
+//                } else if (response.code() == 500) {
+//                    Log.d("Adddfdfdf subjet", "Hubo un error en el servidor. Reintentar");
+//
+//                    Toast.makeText(getContext(), "Hubo un error en el servidor. Reintentar", Toast.LENGTH_LONG).show();
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ArrayList<Teacher>> call, Throwable t) {
+//                Log.d("failure", "Hubo un error en el servidor. Reintentar");
+//
+//            }
+//        });
+//
+//    }
+
+
+
 }

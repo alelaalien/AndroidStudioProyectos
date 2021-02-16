@@ -14,9 +14,7 @@ public class User  {
     @SerializedName("email")
     @Expose
     private String email;
-    @SerializedName("img")
-    @Expose
-    private String img;
+
     @SerializedName("password")
     @Expose
     private String password;
@@ -26,11 +24,10 @@ public class User  {
     public User() {
     }
 
-    public User(int id, String nick, String email, String img, String password) {
+    public User(int id, String nick, String email,  String password) {
         this.id=id;
         this.nick = nick;
         this.email = email;
-        this.img = img;
         this.password = password;
     }
 
@@ -60,25 +57,12 @@ public class User  {
         this.email = email;
     }
 
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<User> listUser()
-    {
-     return list;
     }
 
 }

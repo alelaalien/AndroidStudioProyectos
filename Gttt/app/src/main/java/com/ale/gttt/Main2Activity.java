@@ -95,8 +95,12 @@ private EditText etnickingreso, etpassingreso;
             @Override
             public void onClick(View v) {
                 mp.start();
+if (etnickingreso.getText().toString().trim().length() > 0&&etpassingreso.getText().toString().trim().length() >0){
+    Login();
+}else{
+    Toast.makeText(getApplicationContext(), "Campos vacíos", Toast.LENGTH_SHORT).show();
+}
 
-                    Login();
 
 
             }

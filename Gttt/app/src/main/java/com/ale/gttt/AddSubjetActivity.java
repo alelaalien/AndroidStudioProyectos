@@ -5,10 +5,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,6 +23,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ale.gttt.Interfaces.ISSubjet;
+import com.ale.gttt.Interfaces.ISUser;
 import com.ale.gttt.Session.SharedPreferenceManager;
 import com.ale.gttt.Tools.AuxAdapter;
 import com.ale.gttt.entities.AuxiliarSch;
@@ -45,15 +50,22 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
     private ListView listdias;
     private CheckBox cbhc;
     private  ArrayList<String> data;
-    private ArrayList<AuxiliarSch> values;
+    private ArrayList<AuxiliarSch> editValues;
+    private ArrayList<AuxiliarSch> values= new ArrayList<>();
     MediaPlayer pop, borrar, clic;
+    private int idU;
+
+
     @Override
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_subjet);
         Init();
         Verifications();
     }
+
 
     private void Verifications() {
 
@@ -79,8 +91,13 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
             btnEditSave="Guardar Cambios";
             btnCancelReturn="Volver";
             etnombremateria.setText(data.get(0));
-            ArrayList<AuxiliarSch> a= TimeReader();
-            Stack(a);
+            String extra= data.get(2);
+            Log.d("data.get(2):", extra);
+            if (extra.length()!=0){
+                ArrayList<AuxiliarSch> a= TimeReader(); //2
+                Stack(a);
+            }
+
 
         }
         btndeletesubjet.setText(deleteTitle);
@@ -90,7 +107,7 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void Init() {
-        values= new ArrayList<>();
+
         btndeletesubjet=findViewById(R.id.btndeletesubjet);
         btnstarttime=  findViewById(R.id.btnstarttime);
         btnaddtime=  findViewById(R.id.btnaddtime);
@@ -106,10 +123,11 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
         listdias=  findViewById(R.id.listdias);
         cbhc=findViewById(R.id.cbhc);
         tvtitle=findViewById(R.id.tv_title_subjet);
+        idU=SharedPreferenceManager.getInstance(getApplicationContext()).GetUser().getId();
         Intent dataintent= getIntent();
         data=dataintent.getStringArrayListExtra("arraydata");
         Config();
-        GetAllSubjets();
+
     }
 
     public  void Config()
@@ -124,6 +142,7 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
         btncancelar.setOnClickListener(this);
         btnguardar.setOnClickListener(this);
         btndeletesubjet.setOnClickListener(this);
+       // GetArray();
     }
 
     @Override
@@ -193,29 +212,45 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
             Subjet subjet= new Subjet();
             String nameLower=etnombremateria.getText().toString();
             String name=ToUpper(nameLower);
-            String classes = new Gson().toJson(values);
             int id= SharedPreferenceManager.getInstance(getApplicationContext()).GetUser().getId();
             subjet.setIdUser(id);
             subjet.setName(name);
-            if (values!=null){
-                subjet.setClass_(classes);
 
-            }else{
-                subjet.setClass_("");
-            }
+
             subjet.setActive(0);
 
             if (value.equals("Cancelar")){
+                String classes = new Gson().toJson(values);
+                if (values!=null){
+                    subjet.setClass_(classes);
+
+                }else{
+                    subjet.setClass_("");
+                }
+
                 Save(subjet);
             }else if (value.equals("Volver")) {
 
-                Edit(subjet);
+                String classes = new Gson().toJson(editValues);
+                if (editValues!=null){
+                    subjet.setClass_(classes);
+
+                }else{
+                    subjet.setClass_("");
+                }
+                    int idSubjet=Integer.parseInt(data.get(1));
+                    subjet.setId(idSubjet);
+                Log.d("estamos en: ","btn volver get values" );
+                    Edit(subjet);
+
             }
             }else{
             Toast.makeText(getApplicationContext(), "Faltan campos por completar", Toast.LENGTH_LONG).show();
             etnombremateria.requestFocus();
         }
       }
+
+
 
     private void Empty() {
         spindia.setSelection(0);
@@ -224,14 +259,17 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
 
     }
 
+
      private void ClearTask(){
         Intent i= new Intent(getApplicationContext(), MenuTabActivity.class);
+
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
     }
 
     private ArrayList<AuxiliarSch> TimeReader(){
         String stringh= data.get(2);
+
         Gson gson= new Gson();
         AuxiliarSch[] ax = gson.fromJson(stringh, AuxiliarSch[].class);
         ArrayList<AuxiliarSch>   auxArray= new ArrayList<>();
@@ -247,14 +285,58 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
         return auxArray;
 
     }
-    private void Stack(ArrayList<AuxiliarSch> value){
+    private AuxAdapter Stack(ArrayList<AuxiliarSch> value){
         adapter=new AuxAdapter(getApplicationContext(), value);
         listdias.setAdapter(adapter);
+         return adapter;
     }
-    private void GetTimes(){
 
+    private void GetTimes(){
+        AuxiliarSch auxiliar = GetAuxiliar();
+////////////////////////////////////////////////////edit////////////////////////
+if(btncancelar.getText().toString().equals("Volver")){
+
+            if (data.get(2).length()>0){
+                editValues= TimeReader();
+                editValues.add(auxiliar);
+
+            } else {
+                editValues= new ArrayList<>();
+                editValues.add(auxiliar);
+            }
+                        if (etst.getText().toString().trim().length() > 0&& etet.getText().toString().trim().length() > 0) {
+
+                            Stack(editValues);
+                        }
+                        if(editValues.size()>0){
+                            Stack(editValues);
+                            Value(editValues);
+                        }
+                        if (data!=null){
+                            Stack(editValues);
+                        }
+}
+
+////////////////////////////////////////////////////////////save/////////////////////////////////////
+
+else{
+    values.add(auxiliar);
+
+    if (etst.getText().toString().trim().length() > 0&& etet.getText().toString().trim().length() > 0) {
+
+        Stack(values);  }else if(values.size()>0){
+        Value(values);
+    }
+    if (data!=null){
+        Stack(values);
+    }
+}
+        Empty();
+    }
+
+    private AuxiliarSch GetAuxiliar() {
         AuxiliarSch auxiliar = new AuxiliarSch();
-        String day, start, end, title, classTime;
+        String day, start, end, title;
         day=spindia.getSelectedItem().toString();
         start=String.valueOf(etst.getText());
         end=String.valueOf(etet.getText());
@@ -268,22 +350,14 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
             title="Consulta ";
         }
         auxiliar.setType(title);
-
-
-
-        values.add(auxiliar);
-
-        if (etst.getText().toString().trim().length() > 0&& etet.getText().toString().trim().length() > 0) {
-
-            Stack(values);
-        } else {
-            values=null;
-            //   Stack(values);
-        }
-        Empty();
+        return auxiliar;
     }
-    private void Save(Subjet s){
 
+    private ArrayList<AuxiliarSch> Value(ArrayList<AuxiliarSch> values) {
+        return values;
+    }
+
+    private void Save(Subjet s){
         Call<Void> call= ServiceBA.getInstance().createService(ISSubjet.class).Create(s);
         call.enqueue(new Callback<Void>() {
             @Override
@@ -306,45 +380,27 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
 
     }
     private void Edit(Subjet subjet) {
-//        Call<Void> call= ServiceBA.getInstance().createService(ISSubjet.class).Update(subjet);
-//        call.enqueue(new Callback<Void>() {
-//            @Override
-//            public void onResponse(Call<Void> call, Response<Void> response) {
-//                if (response.code()==200){
-//                    Toast.makeText(getApplicationContext(), "Cambios realizados!", Toast.LENGTH_LONG).show();
-//                    Empty();
-//                }else if(response.code()==404){
-//                    Toast.makeText(getApplicationContext(), "Recurso no encontrado", Toast.LENGTH_LONG).show();
-//                }else if(response.code()==500){
-//                    Toast.makeText(getApplicationContext(), "Hubo un error en el servidor. Reintentar", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Void> call, Throwable t) {
-//                Toast.makeText(getApplicationContext(), "Error al editar: "+t.getMessage(), Toast.LENGTH_LONG).show();
-//
-//            }
-//        });
-
-    }
-    private void GetAllSubjets(){
-        int id= SharedPreferenceManager.getInstance(getApplicationContext()).GetUser().getId();
-        Call<ArrayList<Subjet>> call= ServiceBA.getInstance().createService(ISSubjet.class).GetAll(id, null, 0);
-        call.enqueue(new Callback<ArrayList<Subjet>>() {
+        Call<Subjet> call= ServiceBA.getInstance().createService(ISSubjet.class).Update(subjet.getId(), subjet);
+        call.enqueue(new Callback<Subjet>() {
             @Override
-            public void onResponse(Call<ArrayList<Subjet>> call, Response<ArrayList<Subjet>> response) {
-
+            public void onResponse(Call<Subjet> call, Response<Subjet> response) {
+                if (response.code()==200){
+                    Toast.makeText(getApplicationContext(), "Cambios realizados!", Toast.LENGTH_LONG).show();
+                    Empty();
+                }else if(response.code()==404){
+                    Toast.makeText(getApplicationContext(), "Recurso no encontrado", Toast.LENGTH_LONG).show();
+                }else if(response.code()==500){
+                    Toast.makeText(getApplicationContext(), "Hubo un error en el servidor. Reintentar", Toast.LENGTH_LONG).show();
+                }
             }
-
             @Override
-            public void onFailure(Call<ArrayList<Subjet>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Error al cargar: "+t.getMessage(), Toast.LENGTH_LONG ).show();
-
+            public void onFailure(Call<Subjet> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Error al editar: "+t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 
     }
+
     private String ToUpper(String string){
         String str = string;
         String firstLtr = str.substring(0, 1);
@@ -386,13 +442,22 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
                 AlertDialog title= dialog.create();
                 title.setTitle("Confirmar acción");
                 title.show();
-
-
-
-
     }
 
-    private void Delete(int id) {
+        public void Delete(int id) {
+            Call<Void> call= ServiceBA.getInstance().createService(ISSubjet.class).Delete(id);
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(), "error: "+ t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
     }
 
 }

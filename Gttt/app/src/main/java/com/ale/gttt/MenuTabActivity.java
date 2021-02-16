@@ -24,10 +24,14 @@ public class MenuTabActivity extends AppCompatActivity
         UserFragment.OnFragmentInteractionListener
 {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_tab);
+
+        
+
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
@@ -46,9 +50,10 @@ public class MenuTabActivity extends AppCompatActivity
         });
     }
 
-    private void LogOut() {
+    public void LogOut() {
         Intent i= new Intent(new Intent(getApplicationContext(), Main2Activity.class));
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        SharedPreferenceManager.getInstance(getApplicationContext()).LogOut();
         startActivity(i);
     }
 

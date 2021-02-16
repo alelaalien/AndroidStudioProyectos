@@ -9,7 +9,6 @@ public class SharedPreferenceManager {
     private static final String SHARED_PREFERENCES="SHARED_PREFERENCES";
     private static final String SHARED_PREFERENCES_ID="SHARED_PREFERENCES_ID";
     private static final String SHARED_PREFERENCES_NICK="SHARED_PREFERENCES_NICK";
-    private static final String SHARED_PREFERENCES_IMG="SHARED_PREFERENCES_IMG";
     private static final String SHARED_PREFERENCES_PASSWORD="SHARED_PREFERENCES_PASSWORD";
     private static final String SHARED_PREFERENCES_EMAIL="SHARED_PREFERENCES_EMAIL";
     private SharedPreferences sharedPreferences;
@@ -33,7 +32,7 @@ public class SharedPreferenceManager {
         editor.putString(SHARED_PREFERENCES_NICK , u.getNick());
         editor.putString(SHARED_PREFERENCES_EMAIL , u.getEmail());
         editor.putString(SHARED_PREFERENCES_PASSWORD , u.getPassword());
-        editor.putString(SHARED_PREFERENCES_IMG , u.getImg());
+
         editor.apply();
     }
     public boolean IsLoged(){
@@ -47,8 +46,7 @@ public class SharedPreferenceManager {
                 sharedPreferences.getInt(SHARED_PREFERENCES_ID,  0),
                 sharedPreferences.getString(SHARED_PREFERENCES_NICK, null),
                 sharedPreferences.getString(SHARED_PREFERENCES_EMAIL, null),
-                sharedPreferences.getString(SHARED_PREFERENCES_PASSWORD, null),
-                sharedPreferences.getString(SHARED_PREFERENCES_IMG, null)
+                sharedPreferences.getString(SHARED_PREFERENCES_PASSWORD, null)
         );
         return u;
     }

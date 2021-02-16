@@ -10,6 +10,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ISUser {
     @GET("api/user")
@@ -22,7 +23,7 @@ public interface ISUser {
     Call<Void> Delete(@Path("id") int id);
 
     @PUT("api/user")
-    Call<Void> Update(@Body User u);
+    Call<User> Update(@Query("id") int id, @Body User u);
 
 
 }

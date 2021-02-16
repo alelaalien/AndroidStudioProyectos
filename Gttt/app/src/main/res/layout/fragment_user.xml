@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,6 +21,7 @@
       android:layout_height="1dp"
       android:layout_marginTop="52dp"
       android:ems="10"
+
       android:inputType="textPersonName"
       android:visibility="invisible" />
 
@@ -29,9 +31,10 @@
       android:layout_height="wrap_content"
       android:fontFamily="@font/habibi"
       android:text="@string/Nick_"
+
       android:textAlignment="textStart"
-      android:textColor="@color/colorPrimaryDark"
-      android:textSize="24sp" />
+      android:textColor="@color/colorAccent"
+      android:textSize="20sp" />
 
   <EditText
       android:id="@+id/etnickperfil"
@@ -41,11 +44,11 @@
       android:ems="10"
       android:fontFamily="@font/habibi"
       android:inputType="textPersonName"
-
+      android:selectAllOnFocus="true"
       android:textAlignment="center"
-      android:textColor="@color/colorWhite"
+      android:textColor="@color/colorAccent"
       android:textColorHint="@color/colorHint"
-      android:textSize="18sp" />
+      android:textSize="20dp" />
 
   <TextView
       android:id="@+id/textView19"
@@ -56,8 +59,8 @@
       android:text="@string/email_"
 
       android:textAlignment="textStart"
-      android:textColor="@color/colorPrimaryDark"
-      android:textSize="24sp" />
+      android:textColor="@color/colorAccent"
+      android:textSize="20sp" />
 
   <EditText
       android:id="@+id/etmailperfil"
@@ -67,22 +70,24 @@
       android:ems="10"
       android:fontFamily="@font/habibi"
       android:inputType="textEmailAddress"
+      android:selectAllOnFocus="true"
+
       android:textAlignment="center"
-      android:textColor="@color/colorWhite"
+      android:textColor="@color/colorAccent"
       android:textColorHint="@color/colorHint"
-      android:textSize="18sp" />
+      android:textSize="20dp" />
 
   <TextView
       android:id="@+id/textView18"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+
       android:layout_marginTop="20dp"
       android:fontFamily="@font/habibi"
       android:text="@string/pass_"
-
-      android:textAlignment="textStart"
-      android:textColor="@color/colorPrimaryDark"
-      android:textSize="24sp" />
+      android:textAlignment="viewStart"
+      android:textColor="@color/colorAccent"
+      android:textSize="20sp" />
 
   <EditText
       android:id="@+id/etpassperfil1"
@@ -92,10 +97,11 @@
       android:ems="10"
       android:fontFamily="@font/habibi"
       android:inputType="textPassword"
+      android:selectAllOnFocus="true"
       android:textAlignment="center"
-      android:textColor="@color/colorWhite"
+      android:textColor="@color/colorAccent"
       android:textColorHint="@color/colorHint"
-      android:textSize="18sp" />
+      android:textSize="20dp" />
 
   <TextView
       android:id="@+id/textView20"
@@ -104,22 +110,24 @@
       android:layout_marginTop="20dp"
       android:fontFamily="@font/habibi"
       android:text="@string/repetirpass_"
-      android:textAlignment="textStart"
-      android:textColor="@color/colorPrimaryDark"
-      android:textSize="24sp" />
+      android:textAlignment="viewStart"
+      android:textColor="@color/colorAccent"
+      android:textSize="20sp" />
 
   <EditText
       android:id="@+id/etpass2perfil"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="20dp"
+      android:layout_marginBottom="8dp"
       android:ems="10"
       android:fontFamily="@font/habibi"
       android:inputType="textPassword"
+      android:selectAllOnFocus="true"
       android:textAlignment="center"
-      android:textColor="@color/colorWhite"
+      android:textColor="@color/colorAccent"
       android:textColorHint="@color/colorHint"
-      android:textSize="18sp" />
+      android:textSize="20dp" />
 
   <Button
       android:id="@+id/btneditarperfil"
@@ -128,8 +136,8 @@
       android:layout_marginTop="36dp"
       android:backgroundTint="@color/colorDark"
       android:fontFamily="@font/habibi"
-      android:text="@string/aceptar"
-      android:textColor="@color/colorPrimaryDark"
+      android:text="@string/editar"
+      android:textColor="@color/colorAccent"
       android:textSize="18sp" />
 
   <Button
@@ -137,12 +145,26 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="36dp"
-      android:background="@color/colorGray"
+      android:background="@color/colorNone"
       android:backgroundTint="@color/colorNone"
       android:fontFamily="@font/habibi"
       android:text="@string/cancelar"
-      android:textColor="@color/colorPrimaryDark"
+      android:textColor="@color/colorAccent"
       android:textSize="18sp" />
+
+  <Button
+      android:id="@+id/btndelete"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="36dp"
+      android:background="@color/colorHint"
+      android:fontFamily="@font/habibi"
+      android:text="@string/deleteuser"
+      android:textColor="@color/colorAccent"
+      android:textSize="18sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent" />
+
  </LinearLayout>
 
 </FrameLayout>

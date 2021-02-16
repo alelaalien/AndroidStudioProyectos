@@ -24,6 +24,9 @@ public interface ISSubjet {
     @DELETE("api/subjet/{id}")
     Call<Void> Delete(@Path("id") int id);
 
+    @DELETE("api/subjet/deleteall/")
+    Call<Void> DeleteAll(@Query("IdUser") int idUser);
+
     @PUT("api/subjet")
-    Call<Void> Update(@Body Subjet u);
+    Call<Subjet> Update(@Query("id") int id, @Body Subjet u);
 }

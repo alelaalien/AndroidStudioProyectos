@@ -261,21 +261,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/btncancelardocenteedicion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="@color/colorGray"
-        android:fontFamily="@font/habibi"
-        android:shadowColor="@color/colorGold"
-        android:text="@string/cancelar"
-        android:textColor="@color/colorGold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnguardardocenteedicion"
@@ -296,5 +281,21 @@
         app:layout_constraintStart_toStartOf="@+id/btncancelardocenteedicion"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
+    <Button
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/btncancelardocenteedicion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/colorGray"
+        android:fontFamily="@font/habibi"
+        android:shadowColor="@color/colorGold"
+        android:text="@string/cancelar"
+        android:textColor="@color/colorGold"
+ />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

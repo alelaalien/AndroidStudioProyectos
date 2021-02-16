@@ -9,6 +9,7 @@
     <string name="item2">Cerrar Sesión</string>
     <string name="nombre_">Nombre:</string>
     <string name="apellido_">Apellido:</string>
+    <string name="deleteuser">Eliminar usuario</string>
     <string name="email_">Email:</string>
     <string name="email">Email</string>
     <string name="bienvenido">Bienvenido</string>
