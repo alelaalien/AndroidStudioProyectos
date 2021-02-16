@@ -95,11 +95,10 @@
 
                 <ListView
                     android:id="@+id/listdias"
-                    android:layout_width="271dp"
+                    android:layout_width="0dp"
                     android:layout_height="370dp"
                     android:layout_marginTop="16dp"
-                    app:layout_constraintEnd_toStartOf="@+id/btndls"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintEnd_toEndOf="@+id/btnaddtime"
                     app:layout_constraintStart_toStartOf="@+id/btnendtime"
                     app:layout_constraintTop_toBottomOf="@+id/cbhc" />
 
@@ -173,26 +172,13 @@
                     app:layout_constraintStart_toEndOf="@+id/cbhc"
                     app:layout_constraintTop_toBottomOf="@+id/etet" />
 
-                <Button
-                    android:id="@+id/btndls"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="92dp"
-                    android:background="@color/colorGray"
-                    android:fontFamily="@font/habibi"
-                    android:text="@string/borrar"
-                    android:textColor="@color/colorGold"
-                    app:layout_constraintEnd_toEndOf="@+id/etet"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/btnendtime"
-                    app:layout_constraintTop_toBottomOf="@+id/btnaddtime" />
-
 
                 <CheckBox
                     android:id="@+id/cbhc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:fontFamily="@font/habibi"
                     android:text="@string/consultas"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@+id/btnendtime"
@@ -226,14 +212,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="16dp"
         android:background="@color/colorBlack"
         android:backgroundTint="@color/colorBlack"
         android:fontFamily="@font/habibi"
         android:text="@string/guardar"
         android:textAlignment="center"
         android:textColor="@color/colorGold"
-        app:layout_constraintBottom_toTopOf="@+id/btncancelarmateria"
+        app:layout_constraintBottom_toTopOf="@+id/btndeletesubjet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
@@ -244,14 +230,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="24dp"
-        android:background="@color/colorBlack"
-        android:backgroundTint="@color/colorBlack"
+        android:layout_marginBottom="16dp"
+        android:background="@color/colorHint"
         android:fontFamily="@font/habibi"
         android:text="@string/guardar"
         android:textAlignment="center"
         android:textColor="@color/colorGold"
-        app:layout_constraintBottom_toTopOf="@+id/btnas"
+        app:layout_constraintBottom_toTopOf="@+id/btncancelarmateria"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />

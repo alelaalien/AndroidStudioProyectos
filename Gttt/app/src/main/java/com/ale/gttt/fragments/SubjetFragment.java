@@ -5,12 +5,16 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -43,6 +47,7 @@ public class SubjetFragment extends Fragment {
     private MediaPlayer mp;
     private ListView listView;
     private SubjetsAdapter adapter;
+    private EditText ettxtmateria;
 
     private OnFragmentInteractionListener mListener;
 
@@ -72,7 +77,7 @@ public class SubjetFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_subjet, container, false);
         Init(view);
-        GetAll();
+        GetAll(null);
         Config();
         return view;
     }
@@ -81,6 +86,7 @@ public class SubjetFragment extends Fragment {
         fab = view.findViewById(R.id.fab_subjet);
         mp = MediaPlayer.create(getContext(), R.raw.add);
         listView = view.findViewById(R.id.rvmateriasrv);
+        ettxtmateria=view.findViewById(R.id.ettxtmateria);
     }
 
     public void onButtonPressed(Uri uri) {
@@ -100,6 +106,19 @@ public class SubjetFragment extends Fragment {
                 mp.start();
             }
         });
+
+
+
+
+
+
+
+
+
+
+
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             ArrayList<String> data = new ArrayList<>();
 
@@ -117,7 +136,6 @@ public class SubjetFragment extends Fragment {
                 }else{
                     data.add("");
                 }
-                Log.d("edicion", name+" "+id_sub+" "+hour);
 
                 data.add(hour);
 
@@ -128,7 +146,35 @@ public class SubjetFragment extends Fragment {
 
             }
         });
+
+        TextWatcher textWatcher=new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                GetAll(ettxtmateria.getText().toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(ettxtmateria.getText().toString().equals("")){
+             //       GetAll(null);
+                }
+            }
+        };
+
+        ettxtmateria.addTextChangedListener(textWatcher);
+
+       // GetAll(null);
+
+
     }
+
+
+
 
     @Override
     public void onAttach(Context context) {
@@ -152,45 +198,91 @@ public class SubjetFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void GetAll() {
-        viewAll = new ArrayList<>();
-        int id = SharedPreferenceManager.getInstance(getContext()).GetUser().getId();
+    private void GetAll(String s) {
 
-        Call<ArrayList<Subjet>> call;
+        if (s==null){
+            viewAll = new ArrayList<>();
+            int id = SharedPreferenceManager.getInstance(getContext()).GetUser().getId();
 
-        call = ServiceBA.getInstance().createService(ISSubjet.class).GetAll(id, null, 0);
+            Call<ArrayList<Subjet>> call;
 
-        call.enqueue(new Callback<ArrayList<Subjet>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Subjet>> call, Response<ArrayList<Subjet>> response) {
-                if (response.code() == 200) {
+            call = ServiceBA.getInstance().createService(ISSubjet.class).GetAll(id, null, 0);
 
-                    try {
-                        viewAll.addAll(response.body());
-                        ShowAll(viewAll, 0);
+            call.enqueue(new Callback<ArrayList<Subjet>>() {
+                @Override
+                public void onResponse(Call<ArrayList<Subjet>> call, Response<ArrayList<Subjet>> response) {
+                    if (response.code() == 200) {
 
-                    } catch (Exception e) {
+                        try {
+                            viewAll.addAll(response.body());
+                            ShowAll(viewAll, 0);
+
+                        } catch (Exception e) {
+                        }
+
+                    } else if (response.code() == 404) {
+                        Toast.makeText(getContext(), "Recursos no encontrados", Toast.LENGTH_LONG).show();
+                        Log.d("Addfdfdfd subjet", "Recursos no encontrados");
+
+
+                    } else if (response.code() == 500) {
+                        Log.d("Adddfdfdf subjet", "Hubo un error en el servidor. Reintentar");
+
+                        Toast.makeText(getContext(), "Hubo un error en el servidor. Reintentar", Toast.LENGTH_LONG).show();
+
                     }
+                }
 
-                } else if (response.code() == 404) {
-                    Toast.makeText(getContext(), "Recursos no encontrados", Toast.LENGTH_LONG).show();
-                    Log.d("Addfdfdfd subjet", "Recursos no encontrados");
-
-
-                } else if (response.code() == 500) {
-                    Log.d("Adddfdfdf subjet", "Hubo un error en el servidor. Reintentar");
-
-                    Toast.makeText(getContext(), "Hubo un error en el servidor. Reintentar", Toast.LENGTH_LONG).show();
+                @Override
+                public void onFailure(Call<ArrayList<Subjet>> call, Throwable t) {
+                    Log.d("failure", "Hubo un error en el servidor. Reintentar");
 
                 }
-            }
+            });
 
-            @Override
-            public void onFailure(Call<ArrayList<Subjet>> call, Throwable t) {
-                Log.d("failure", "Hubo un error en el servidor. Reintentar");
+        }else {
+            viewAll = new ArrayList<>();
+            int id = SharedPreferenceManager.getInstance(getContext()).GetUser().getId();
 
-            }
-        });
+            Call<ArrayList<Subjet>> call;
+
+            call = ServiceBA.getInstance().createService(ISSubjet.class).GetAll(id, s, 0);
+
+            call.enqueue(new Callback<ArrayList<Subjet>>() {
+                @Override
+                public void onResponse(Call<ArrayList<Subjet>> call, Response<ArrayList<Subjet>> response) {
+                    if (response.code() == 200) {
+
+                        try {
+                            viewAll.addAll(response.body());
+                            ShowAll(viewAll, 0);
+
+                        } catch (Exception e) {
+                        }
+
+                    } else if (response.code() == 404) {
+                        Toast.makeText(getContext(), "Recursos no encontrados", Toast.LENGTH_LONG).show();
+                        Log.d("Addfdfdfd subjet", "Recursos no encontrados");
+
+
+                    } else if (response.code() == 500) {
+                        Log.d("Adddfdfdf subjet", "Hubo un error en el servidor. Reintentar");
+
+                        Toast.makeText(getContext(), "Hubo un error en el servidor. Reintentar", Toast.LENGTH_LONG).show();
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ArrayList<Subjet>> call, Throwable t) {
+                    Log.d("failure", "Hubo un error en el servidor. Reintentar");
+
+                }
+            });
+
+        }
+
+
 
     }
 
@@ -198,6 +290,9 @@ public class SubjetFragment extends Fragment {
         adapter= new SubjetsAdapter(getContext(), list);
         listView.setAdapter(adapter);
     }
+
+
+
 
 
 }

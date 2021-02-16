@@ -23,14 +23,15 @@ public class MenuTabActivity extends AppCompatActivity
         TeacherFragment.OnFragmentInteractionListener,
         UserFragment.OnFragmentInteractionListener
 {
-
+private String idTab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_tab);
 
-        
+        idTab = getIntent().getStringExtra("idTab");
+
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);

@@ -1,12 +1,16 @@
 package com.ale.gttt;
 
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -41,7 +45,7 @@ import retrofit2.Response;
 
 public class AddSubjetActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btnstarttime, btnendtime, btncancelar, btnguardar, btndls, btnaddtime, btndeletesubjet;
+    private Button btnstarttime, btnendtime, btncancelar, btnguardar,  btnaddtime, btndeletesubjet;
     private EditText etst,etet, etnombremateria;
     private Spinner spindia;
     private int hour, minute;
@@ -51,6 +55,9 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
     private CheckBox cbhc;
     private  ArrayList<String> data;
     private ArrayList<AuxiliarSch> editValues;
+    private ArrayList<AuxiliarSch> suplist = new ArrayList<>();
+   private ArrayList<AuxiliarSch> a = new ArrayList<>();
+    private String data2;
     private ArrayList<AuxiliarSch> values= new ArrayList<>();
     MediaPlayer pop, borrar, clic;
     private int idU;
@@ -71,9 +78,19 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
 
         if (data!=null){
             SetTexts(1);
+            CheckData();
         }else{
             SetTexts(0);
         }
+    }
+
+    private boolean CheckData() {
+        boolean value=false;
+        if (data.get(2).length()>0){
+            data2=data.get(2);
+            value=true;
+        }
+        return value;
     }
 
     private void SetTexts(int i) {
@@ -91,11 +108,13 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
             btnEditSave="Guardar Cambios";
             btnCancelReturn="Volver";
             etnombremateria.setText(data.get(0));
-            String extra= data.get(2);
-            Log.d("data.get(2):", extra);
-            if (extra.length()!=0){
-                ArrayList<AuxiliarSch> a= TimeReader(); //2
-                Stack(a);
+            Extra();
+            boolean b=CheckData();
+            if (b){
+                 suplist=SupListViewValues();
+            }else{
+
+                suplist= new ArrayList<>();
             }
 
 
@@ -104,6 +123,19 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
         tvtitle.setText(title);
         btnguardar.setText(btnEditSave);
         btncancelar.setText(btnCancelReturn);
+    }
+
+    private ArrayList<AuxiliarSch> Extra() {
+        ArrayList<AuxiliarSch> a;
+        String extra= data.get(2);
+        if (extra.length()!=0){
+            a= TimeReader(); //2
+            Stack(a);
+        }else{
+            a= new ArrayList<>();
+        }
+        return a;
+
     }
 
     private void Init() {
@@ -116,7 +148,7 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
         etst= findViewById(R.id.etst);
         btncancelar= findViewById(R.id.btncancelarmateria);
         btnguardar=  findViewById(R.id.btnas);
-        btndls= findViewById(R.id.btndls);
+
         etst= findViewById(R.id.etst);
         etnombremateria=  findViewById(R.id.etnombremateria);
         spindia=  findViewById(R.id.spindia);
@@ -126,8 +158,8 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
         idU=SharedPreferenceManager.getInstance(getApplicationContext()).GetUser().getId();
         Intent dataintent= getIntent();
         data=dataintent.getStringArrayListExtra("arraydata");
-        Config();
 
+        Config();
     }
 
     public  void Config()
@@ -138,11 +170,32 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
         borrar=MediaPlayer.create(this, R.raw.borrar);
         clic=MediaPlayer.create(this, R.raw.clic);
         btnaddtime.setOnClickListener(this);
-        btndls.setOnClickListener(this);
         btncancelar.setOnClickListener(this);
         btnguardar.setOnClickListener(this);
         btndeletesubjet.setOnClickListener(this);
-       // GetArray();
+
+
+                listdias.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if (btncancelar.getText().toString().equals("Cancelar")){
+                    values.remove(position);
+                    adapter.notifyDataSetChanged();
+                }else {
+                    boolean val= CheckData();
+                    if (val){
+                        suplist.remove(position);
+                        adapter.notifyDataSetChanged();
+                        Log.d("va", a.size()+"");     Log.d("va",  " "+position);
+                        Stack(suplist);
+                    }
+                }
+            }
+        });
+
+
+
     }
 
     @Override
@@ -186,25 +239,46 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
             borrar.start();
             ClearTask();
         }
-        if (v==btndls){
-            pop.start();
 
-                if(values!=null){
-                    values.clear();
-                    adapter.notifyDataSetChanged();
-                }
-        }
         if (v==btnaddtime){
             pop.start();
-            GetTimes();
+     if (btncancelar.getText().toString().equals("Volver")){
+                GetTimes(1);
+            }else{
+                GetTimes(0);
+            }
+        CloseInput();
+
         }
         if (v==btndeletesubjet){
             Alert();
         }
     }
 
+    private void CloseInput() {
+        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        inputMethodManager.hideSoftInputFromWindow(etet.getWindowToken(), 0);
+
+    }
 
 
+
+
+    private ArrayList<AuxiliarSch> SupListViewValues(){
+      Adapter a=  listdias.getAdapter();
+     int  i=a.getCount();
+     ArrayList<Object> ar= new ArrayList<>();
+     suplist= new ArrayList<>();
+     for(int d=0; d<i;d++){
+         ar.add(a.getItem(d));
+     }
+        for(int f=0; f<ar.size();f++){
+           AuxiliarSch au=(AuxiliarSch) ar.get(f);
+           suplist.add(au);
+        }
+return suplist;
+    }
     private void GetValues (){
 
         if (etnombremateria.getText().toString().trim().length() > 0){
@@ -215,8 +289,6 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
             int id= SharedPreferenceManager.getInstance(getApplicationContext()).GetUser().getId();
             subjet.setIdUser(id);
             subjet.setName(name);
-
-
             subjet.setActive(0);
 
             if (value.equals("Cancelar")){
@@ -227,12 +299,11 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
                 }else{
                     subjet.setClass_("");
                 }
-
                 Save(subjet);
             }else if (value.equals("Volver")) {
 
-                String classes = new Gson().toJson(editValues);
-                if (editValues!=null){
+                String classes = new Gson().toJson(suplist);
+                if (suplist!=null){
                     subjet.setClass_(classes);
 
                 }else{
@@ -240,7 +311,6 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
                 }
                     int idSubjet=Integer.parseInt(data.get(1));
                     subjet.setId(idSubjet);
-                Log.d("estamos en: ","btn volver get values" );
                     Edit(subjet);
 
             }
@@ -258,6 +328,7 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
         etet.setText("");
 
     }
+
 
 
      private void ClearTask(){
@@ -291,47 +362,25 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
          return adapter;
     }
 
-    private void GetTimes(){
+    private void GetTimes(int val){
         AuxiliarSch auxiliar = GetAuxiliar();
-////////////////////////////////////////////////////edit////////////////////////
-if(btncancelar.getText().toString().equals("Volver")){
+        if (val==0){
 
-            if (data.get(2).length()>0){
-                editValues= TimeReader();
-                editValues.add(auxiliar);
+            if (etst.getText().toString().trim().length() > 0&& etet.getText().toString().trim().length() > 0) {
+                values.add(auxiliar);
+                } Stack(values);
 
-            } else {
-                editValues= new ArrayList<>();
-                editValues.add(auxiliar);
+        }else{////////////////////////////////////////////////////edit////////////////////////
+
+
+            if (etst.getText().toString().trim().length() > 0&& etet.getText().toString().trim().length() > 0) {
+                suplist.add(auxiliar);
+
             }
-                        if (etst.getText().toString().trim().length() > 0&& etet.getText().toString().trim().length() > 0) {
+            Stack(suplist);
+        }
 
-                            Stack(editValues);
-                        }
-                        if(editValues.size()>0){
-                            Stack(editValues);
-                            Value(editValues);
-                        }
-                        if (data!=null){
-                            Stack(editValues);
-                        }
-}
-
-////////////////////////////////////////////////////////////save/////////////////////////////////////
-
-else{
-    values.add(auxiliar);
-
-    if (etst.getText().toString().trim().length() > 0&& etet.getText().toString().trim().length() > 0) {
-
-        Stack(values);  }else if(values.size()>0){
-        Value(values);
-    }
-    if (data!=null){
-        Stack(values);
-    }
-}
-        Empty();
+      Empty();
     }
 
     private AuxiliarSch GetAuxiliar() {
@@ -351,10 +400,6 @@ else{
         }
         auxiliar.setType(title);
         return auxiliar;
-    }
-
-    private ArrayList<AuxiliarSch> Value(ArrayList<AuxiliarSch> values) {
-        return values;
     }
 
     private void Save(Subjet s){
