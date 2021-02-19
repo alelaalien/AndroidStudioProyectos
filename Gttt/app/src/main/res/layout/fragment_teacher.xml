@@ -7,6 +7,12 @@
     android:background="@color/colorWhite"
     tools:context=".fragments.TeacherFragment">
 
+    <TextView
+        android:id="@+id/tvidcatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:id="@+id/relativemat"
         android:layout_width="match_parent"
@@ -18,47 +24,96 @@
             android:layout_width="313dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:ems="10"
-            android:fontFamily="sans-serif-medium"
-            android:hint="@string/buscardocente"
+            android:fontFamily="@font/habibi"
+            android:hint="@string/buscar"
             android:inputType="textPersonName"
-            android:textColor="#0A0A09" />
+            android:textColor="#0A0A09"
+            android:textSize="20sp" />
 
 
-        <Spinner
-            android:id="@+id/spinmateridocentes"
-            android:layout_width="372dp"
-            android:layout_height="46dp"
+        <RadioGroup
+            android:id="@+id/rgt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/etbuscardocentename"
-            android:layout_alignStart="@+id/etbuscardocentename"
-            android:layout_alignEnd="@+id/etbuscardocentename"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="14dp"
 
-            android:layout_marginEnd="-3dp"
-            android:background="@color/colorDark"
-            android:backgroundTint="@color/colorPrimaryDark" />
+            android:layout_marginEnd="20dp"
+            android:gravity="center|center_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="20dp">
+
+            <RadioButton
+                android:id="@+id/rdname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/habibi"
+                android:text="@string/mname"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/rdsur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/habibi"
+                android:text="@string/msur"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/rdnick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/habibi"
+                android:text="@string/mnick"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/rbsub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/habibi"
+                android:text="@string/msub"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/rball"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:checked="true"
+                android:fontFamily="@font/habibi"
+                android:text="@string/mall"
+                android:textSize="14sp" />
+        </RadioGroup>
 
         <ScrollView
-            android:layout_width="371dp"
-            android:layout_height="548dp"
-            android:layout_below="@+id/spinmateridocentes"
+            android:layout_width="wrap_content"
+            android:layout_height="782dp"
+            android:layout_below="@id/rgt"
             android:layout_alignStart="@+id/etbuscardocentename"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="0dp"
             android:layout_marginTop="23dp"
             android:layout_marginEnd="20dp">
 
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvmateriasrv"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/lvteachers"
+                    android:layout_width="match_parent"
+                    android:layout_height="765dp" />
+            </LinearLayout>
         </ScrollView>
     </RelativeLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton

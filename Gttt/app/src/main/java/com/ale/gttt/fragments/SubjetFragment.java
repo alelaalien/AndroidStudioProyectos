@@ -107,18 +107,6 @@ public class SubjetFragment extends Fragment {
             }
         });
 
-
-
-
-
-
-
-
-
-
-
-
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             ArrayList<String> data = new ArrayList<>();
 
@@ -141,9 +129,7 @@ public class SubjetFragment extends Fragment {
 
                 Intent i = new Intent(getContext(), AddSubjetActivity.class);
                 i.putStringArrayListExtra("arraydata", data);
-             //   i.putParcelableArrayListExtra(data, )
                 startActivity(i);
-
             }
         });
 
@@ -172,8 +158,6 @@ public class SubjetFragment extends Fragment {
 
 
     }
-
-
 
 
     @Override
@@ -215,7 +199,7 @@ public class SubjetFragment extends Fragment {
 
                         try {
                             viewAll.addAll(response.body());
-                            ShowAll(viewAll, 0);
+                            ShowAll(viewAll);
 
                         } catch (Exception e) {
                         }
@@ -255,7 +239,7 @@ public class SubjetFragment extends Fragment {
 
                         try {
                             viewAll.addAll(response.body());
-                            ShowAll(viewAll, 0);
+                            ShowAll(viewAll);
 
                         } catch (Exception e) {
                         }
@@ -286,7 +270,7 @@ public class SubjetFragment extends Fragment {
 
     }
 
-    private void ShowAll(ArrayList<Subjet> list, int i) {
+    private void ShowAll(ArrayList<Subjet> list) {
         adapter= new SubjetsAdapter(getContext(), list);
         listView.setAdapter(adapter);
     }

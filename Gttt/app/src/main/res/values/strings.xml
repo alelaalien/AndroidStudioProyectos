@@ -7,6 +7,12 @@
     <string name="tab_profile">Perfil</string>
     <string name="item1">Mi Perfil</string>
     <string name="item2">Cerrar Sesión</string>
+    <string name="mname">nombre</string>
+    <string name="msur">apellido</string>
+    <string name="mnick">nick</string>
+    <string name="mall">todos</string>
+    <string name="hinselsub">Seleccionar...</string>
+    <string name="msub">materia</string>
     <string name="nombre_">Nombre:</string>
     <string name="apellido_">Apellido:</string>
     <string name="deleteuser">Eliminar usuario</string>

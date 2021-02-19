@@ -118,35 +118,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/etast"
-            android:layout_width="215dp"
-            android:layout_height="46dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="32dp"
-            android:ems="10"
-            android:fontFamily="@font/habibi"
-            android:inputType="textPersonName"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toStartOf="@+id/btnaddst"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/etnuevodocenteemail"
-            app:layout_constraintTop_toBottomOf="@+id/etnuevodocenteemail" />
-
-        <Button
-            android:id="@+id/btnaddst"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:background="@color/colorGray"
-            android:backgroundTint="@color/colorGray"
-            android:fontFamily="@font/habibi"
-            android:text="@string/Agregar"
-            android:textColor="@color/colorGold"
-            android:textColorHint="@color/colorGold"
-            app:layout_constraintEnd_toEndOf="@+id/etnuevodocenteemail"
-            app:layout_constraintTop_toBottomOf="@+id/etnuevodocenteemail" />
-
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
@@ -226,38 +197,20 @@
             app:layout_constraintStart_toStartOf="@+id/textView8"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <AutoCompleteTextView
+            android:id="@+id/etfill"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:completionHint="@string/hinselsub"
+            android:completionThreshold="1"
+            android:fontFamily="@font/habibi"
+            android:hint="@string/hinselsub"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@+id/etnuevodocenteemail"
+            app:layout_constraintStart_toStartOf="@+id/etnuevodocenteemail"
+            app:layout_constraintTop_toBottomOf="@+id/etnuevodocenteemail" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout3"
-        android:layout_width="0dp"
-        android:layout_height="404dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
-
-        <ScrollView
-            android:layout_width="422dp"
-            android:layout_height="368dp"
-            android:layout_marginTop="32dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.212"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvdicta"
-                    android:layout_width="420dp"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
-        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -267,9 +220,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="12dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/colorBlack"
+        android:fontFamily="@font/habibi"
+        android:hint="@string/guardar"
+        android:shadowColor="@color/colorGold"
+        android:text="@string/guardar"
+        android:textColor="@color/colorGold"
+        app:layout_constraintBottom_toTopOf="@+id/btndeletet"
+        app:layout_constraintEnd_toEndOf="@+id/btncancelardocenteedicion"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="@+id/btncancelardocenteedicion" />
+
+    <Button
+        android:id="@+id/btndeletet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="@color/colorBlack"
         android:fontFamily="@font/habibi"
         android:hint="@string/guardar"
@@ -278,8 +248,8 @@
         android:textColor="@color/colorGold"
         app:layout_constraintBottom_toTopOf="@+id/btncancelardocenteedicion"
         app:layout_constraintEnd_toEndOf="@+id/btncancelardocenteedicion"
-        app:layout_constraintStart_toStartOf="@+id/btncancelardocenteedicion"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="@+id/btncancelardocenteedicion" />
 
     <Button
         app:layout_constraintBottom_toBottomOf="parent"
@@ -297,5 +267,14 @@
         android:text="@string/cancelar"
         android:textColor="@color/colorGold"
  />
+
+    <TextView
+        android:id="@+id/tvidsubt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

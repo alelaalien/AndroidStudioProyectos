@@ -17,18 +17,26 @@ public class Teacher {
     @SerializedName("nick")
     @Expose
     private String nick;
-    @SerializedName("subjets")
+    @SerializedName("celphone")
     @Expose
-    private String subjets;
-    @SerializedName("celephone")
-    @Expose
-    private Integer celephone;
+    private Integer celphone;
     @SerializedName("email")
     @Expose
     private String email;
     @SerializedName("idUser")
     @Expose
     private Integer idUser;
+    @SerializedName("subjet")
+    @Expose
+    private Integer subjet;
+
+    public Integer getSubjet() {
+        return subjet;
+    }
+
+    public void setSubjet(Integer subjet) {
+        this.subjet = subjet;
+    }
 
     public Integer getIdUser() {
         return idUser;
@@ -71,20 +79,12 @@ public class Teacher {
         this.nick = nick;
     }
 
-    public String getSubjets() {
-        return subjets;
+    public Integer getCelphone() {
+        return celphone;
     }
 
-    public void setSubjets(String subjets) {
-        this.subjets = subjets;
-    }
-
-    public Integer getCelephone() {
-        return celephone;
-    }
-
-    public void setCelephone(Integer celephone) {
-        this.celephone = celephone;
+    public void setCelphone(Integer celphone) {
+        this.celphone = celphone;
     }
 
     public String getEmail() {

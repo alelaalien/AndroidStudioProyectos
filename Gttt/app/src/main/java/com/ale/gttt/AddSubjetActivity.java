@@ -30,6 +30,7 @@ import com.ale.gttt.Interfaces.ISSubjet;
 import com.ale.gttt.Interfaces.ISUser;
 import com.ale.gttt.Session.SharedPreferenceManager;
 import com.ale.gttt.Tools.AuxAdapter;
+import com.ale.gttt.Tools.Utilities;
 import com.ale.gttt.entities.AuxiliarSch;
 import com.ale.gttt.entities.Subjet;
 import com.ale.gttt.io.ServiceBA;
@@ -61,6 +62,7 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
     private ArrayList<AuxiliarSch> values= new ArrayList<>();
     MediaPlayer pop, borrar, clic;
     private int idU;
+    private Utilities u;
 
 
     @Override
@@ -139,7 +141,7 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void Init() {
-
+        u=new Utilities();
         btndeletesubjet=findViewById(R.id.btndeletesubjet);
         btnstarttime=  findViewById(R.id.btnstarttime);
         btnaddtime=  findViewById(R.id.btnaddtime);
@@ -237,7 +239,7 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
         }
         if (v==btncancelar){
             borrar.start();
-            ClearTask();
+            u.ClearTask(getApplicationContext());
         }
 
         if (v==btnaddtime){
@@ -327,15 +329,6 @@ return suplist;
         etst.setText("");
         etet.setText("");
 
-    }
-
-
-
-     private void ClearTask(){
-        Intent i= new Intent(getApplicationContext(), MenuTabActivity.class);
-
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(i);
     }
 
     private ArrayList<AuxiliarSch> TimeReader(){
@@ -467,7 +460,7 @@ return suplist;
 
                                 try {
                                     Delete(id);
-                                   ClearTask();
+                                   u.ClearTask(getApplicationContext());
 
                                 }catch (Exception e){
                                     Toast.makeText(getApplicationContext(), "Error ", Toast.LENGTH_LONG).show();
