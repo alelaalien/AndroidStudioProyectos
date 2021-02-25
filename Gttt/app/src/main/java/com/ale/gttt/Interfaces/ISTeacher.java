@@ -34,4 +34,5 @@ public interface ISTeacher {
 
     @PUT("api/teacher")
     Call<Void> Update(@Query("id") int id, @Body Teacher t);
+
 }

@@ -15,9 +15,20 @@ public class User  {
     @Expose
     private String email;
 
+    public int getIdSecurity() {
+        return idSecurity;
+    }
+
+    public void setIdSecurity(int idSecurity) {
+        this.idSecurity = idSecurity;
+    }
+
     @SerializedName("password")
     @Expose
     private String password;
+    @SerializedName("idSecurity")
+    @Expose
+    private int idSecurity;
     public List<User> list;
 
 

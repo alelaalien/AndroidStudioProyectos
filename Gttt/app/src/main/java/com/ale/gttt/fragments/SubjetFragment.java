@@ -182,7 +182,7 @@ public class SubjetFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void GetAll(String s) {
+    public void GetAll(String s) {
 
         if (s==null){
             viewAll = new ArrayList<>();

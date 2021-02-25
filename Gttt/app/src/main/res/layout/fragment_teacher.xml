@@ -22,7 +22,7 @@
         <EditText
             android:id="@+id/etbuscardocentename"
             android:layout_width="313dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="20dp"
@@ -36,73 +36,85 @@
             android:textSize="20sp" />
 
 
-        <RadioGroup
-            android:id="@+id/rgt"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/lay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/etbuscardocentename"
+            android:layout_alignStart="@+id/etbuscardocentename"
+            android:layout_alignEnd="@+id/etbuscardocentename"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="-20dp">
 
-            android:layout_marginEnd="20dp"
-            android:gravity="center|center_horizontal"
-            android:orientation="horizontal"
-            android:paddingTop="20dp">
-
-            <RadioButton
-                android:id="@+id/rdname"
+            <Button
+                android:id="@+id/btnsurname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:fontFamily="@font/habibi"
-                android:text="@string/mname"
-                android:textSize="14sp" />
-
-            <RadioButton
-                android:id="@+id/rdsur"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:background="@color/colorBlack"
                 android:fontFamily="@font/habibi"
                 android:text="@string/msur"
-                android:textSize="14sp" />
+                android:textColor="@color/colorWhite"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/btnname"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <RadioButton
-                android:id="@+id/rdnick"
+            <Button
+                android:id="@+id/btnname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:background="@color/colorBlack"
+                android:fontFamily="@font/habibi"
+                android:text="@string/nombre"
+                android:textColor="@color/colorWhite"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btnnick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorBlack"
                 android:fontFamily="@font/habibi"
                 android:text="@string/mnick"
-                android:textSize="14sp" />
+                android:textColor="@color/colorWhite"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/btnsurname"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <RadioButton
-                android:id="@+id/rbsub"
+            <Button
+                android:id="@+id/btnsubjet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:background="@color/colorBlack"
                 android:fontFamily="@font/habibi"
                 android:text="@string/msub"
-                android:textSize="14sp" />
+                android:textColor="@color/colorWhite"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/btnnick"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <RadioButton
-                android:id="@+id/rball"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/btnviewall"
+                android:layout_width="70dp"
+
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:checked="true"
+                android:background="@color/colorPrimahghgryDark2"
                 android:fontFamily="@font/habibi"
                 android:text="@string/mall"
-                android:textSize="14sp" />
-        </RadioGroup>
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/btnsubjet"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="782dp"
-            android:layout_below="@id/rgt"
-            android:layout_alignStart="@+id/etbuscardocentename"
+            android:layout_width="match_parent"
+            android:layout_height="762dp"
+            android:layout_below="@id/lay"
+            android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="23dp"
-            android:layout_marginEnd="20dp">
+            android:layout_marginTop="43dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -112,9 +124,10 @@
                 <ListView
                     android:id="@+id/lvteachers"
                     android:layout_width="match_parent"
-                    android:layout_height="765dp" />
+                    android:layout_height="718dp" />
             </LinearLayout>
         </ScrollView>
+
     </RelativeLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"

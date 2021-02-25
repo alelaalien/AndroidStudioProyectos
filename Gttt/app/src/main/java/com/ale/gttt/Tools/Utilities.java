@@ -11,12 +11,19 @@ public class Utilities {
 
     }
     public String ToUpper(String string){
-        String str = string;
-        String firstLtr = str.substring(0, 1);
-        String restLtrs = str.substring(1, str.length());
 
-        firstLtr = firstLtr.toUpperCase();
-        str = firstLtr + restLtrs;
+        String str = string;
+        if (string.length()>0){
+
+            String firstLtr = str.substring(0, 1);
+            String restLtrs = str.substring(1, str.length());
+
+            firstLtr = firstLtr.toUpperCase();
+            str = firstLtr + restLtrs;
+
+        }else{
+            str="";
+        }
         return str;
     }
 
@@ -25,5 +32,7 @@ public class Utilities {
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
         c.startActivity(i);
     }
+
+
 
 }

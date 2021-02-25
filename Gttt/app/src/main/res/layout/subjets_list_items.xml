@@ -7,33 +7,54 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_sub_name_item"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:fontFamily="@font/habibi"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:textAlignment="center"
-        android:textColor="@color/colorBlack"
-        android:textSize="24sp" />
+        android:layout_height="match_parent"
+        android:background="@color/colorNone">
 
-    <TextView
-        android:id="@+id/tv_id_item"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        <TextView
+            android:id="@+id/tv_sub_name_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:background="@color/colorBlack"
+            android:fontFamily="@font/habibi"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimahghgryDark2"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        android:shadowColor="@color/colorBlack"
-        android:visibility="invisible" />
+        <TextView
+            android:id="@+id/tv_id_item"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
 
-    <TextView
-        android:id="@+id/tv_h_item"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:shadowColor="@color/colorBlack"
+            android:background="@color/colorBlack"
+            android:shadowColor="@color/colorBlack"
+            android:textColor="@color/colorPrimahghgryDark2"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sub_name_item" />
 
-        android:visibility="invisible" />
+        <TextView
+            android:id="@+id/tv_h_item"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+
+            android:background="@color/colorBlack"
+            android:shadowColor="@color/colorBlack"
+            android:textColor="@color/colorPrimahghgryDark2"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_id_item" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>
 
 

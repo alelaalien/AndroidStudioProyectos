@@ -8,7 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorGold">
+        android:background="@color/colorNone">
 
         <TextView
             android:id="@+id/tvnamesteacher"
@@ -20,7 +20,9 @@
             android:paddingVertical="3dp"
             android:textAlignment="center"
             android:textColor="@color/colorWhite"
-            android:textSize="24sp"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -31,7 +33,9 @@
             android:fontFamily="@font/habibi"
             android:textAlignment="center"
             android:textColor="@color/colorWhite"
-            android:textSize="20dp"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvnamesteacher" />
 
         <TextView
@@ -42,7 +46,8 @@
             android:fontFamily="@font/habibi"
             android:textAlignment="center"
             android:textColor="@color/colorWhite"
-            android:textSize="20dp"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvcelt" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

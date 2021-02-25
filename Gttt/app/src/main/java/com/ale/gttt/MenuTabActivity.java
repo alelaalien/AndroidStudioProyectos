@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.ale.gttt.Session.SharedPreferenceManager;
@@ -24,6 +25,9 @@ public class MenuTabActivity extends AppCompatActivity
         UserFragment.OnFragmentInteractionListener
 {
 private String idTab;
+private NotificationCompat.Builder notification;
+private int id=1;
+private String channel= "canal_1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,9 @@ private String idTab;
                 LogOut();
             }
         });
+
+        notification= new NotificationCompat.Builder(getApplicationContext(), null);
+
     }
 
     public void LogOut() {

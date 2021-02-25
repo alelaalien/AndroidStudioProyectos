@@ -17,114 +17,155 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <ScrollView
-            android:layout_width="314dp"
-            android:layout_height="379dp"
-            android:layout_below="@+id/toggleButton"
-
-            android:layout_alignEnd="@+id/toggleButton"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="11dp">
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvmateriasrv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </ScrollView>
-
-
-
-        <RadioButton
-            android:id="@+id/radioButton4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView24"
-            android:layout_alignStart="@+id/textView24"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="15dp"
-            android:text="@string/palta" />
-
-        <TextView
-            android:id="@+id/textView24"
-            android:layout_width="67dp"
-            android:layout_height="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/laye"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/Prioridad"
-            android:textSize="14sp" />
-
-        <RadioButton
-            android:id="@+id/radioButton5"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView24"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="15dp"
-            android:layout_toEndOf="@+id/radioButton4"
-            android:text="@string/pmedia" />
-
-        <RadioButton
-            android:id="@+id/radioButton6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView24"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="56dp"
-            android:layout_toEndOf="@+id/radioButton5"
-            android:text="@string/pbaja" />
+            android:background="@color/colorBlack">
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/Prioridad"
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btnmedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorBlack"
+                android:fontFamily="@font/habibi"
+                android:text="@string/pmedia"
+                android:textColor="@color/colorMedium"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnlow"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btnhigh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorBlack"
+                android:fontFamily="@font/habibi"
+                android:text="@string/palta"
+                android:textColor="@color/colorHigh"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnmedium"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btnallp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:background="@color/colorBlack"
+                android:fontFamily="@font/habibi"
+                android:text="@string/Todos"
+                android:textColor="@color/colorAll"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btnlow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorBlack"
+                android:fontFamily="@font/habibi"
+                android:text="@string/baja"
+                android:textColor="@color/colorLow"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnallp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="680dp"
+            android:layout_below="@+id/toggleButton"
+            android:layout_marginTop="50dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="680dp"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/lvevent"
+                    android:layout_width="match_parent"
+                    android:layout_height="641dp">
+
+                </ListView>
+            </LinearLayout>
+        </ScrollView>
 
         <TextView
             android:id="@+id/textView34"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/radioButton4"
+            android:layout_below="@+id/laye"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
             android:text="@string/Materia_" />
-
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView34"
-            android:layout_alignStart="@+id/radioButton4"
-            android:layout_alignEnd="@+id/radioButton6"
-            android:layout_marginTop="15dp"
-            android:background="@color/colorDark"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textView36"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/spinner"
+            android:layout_alignTop="@+id/toggleButton"
+            android:layout_alignBottom="@+id/toggleButton"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/claseevento_" />
+            android:layout_marginStart="19dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="15dp"
+            android:text="@string/claseevento_"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ToggleButton
             android:id="@+id/toggleButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/spinner"
-            android:layout_alignEnd="@+id/spinner"
-            android:layout_marginStart="33dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="0dp"
-            android:layout_toEndOf="@+id/textView36"
+            android:layout_height="44dp"
+            android:layout_below="@+id/spinner2"
+            android:layout_alignStart="@+id/spinner2"
+            android:layout_alignEnd="@+id/spinner2"
+            android:layout_marginTop="32dp"
             android:fontFamily="@font/habibi"
             android:textOff="@string/etp"
             android:textOn="@string/Tpracticos" />
 
-
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="309dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/textView34"
+            android:layout_alignBottom="@+id/textView34"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="69dp"
+            android:layout_marginTop="-11dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="-10dp"
+            android:layout_toEndOf="@+id/textView34"
+            android:background="@color/colorBlack" />
 
 
     </RelativeLayout>

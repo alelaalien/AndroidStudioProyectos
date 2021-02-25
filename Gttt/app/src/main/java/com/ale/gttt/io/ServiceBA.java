@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public final class ServiceBA {
-     public static final String BASE_URL= "http://25.75.53.126:45455/";
+     public static final String BASE_URL= "http://192.168.1.102:45455/";
      private static ServiceBA intance;
      private Retrofit retrofit;
      private HttpLoggingInterceptor loggingInterceptor;

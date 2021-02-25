@@ -64,8 +64,8 @@ public class SubjetsAdapter extends BaseAdapter implements View.OnClickListener 
 
 
         if  (position % 2 == 0){
-            name.setBackgroundColor(BLACK);
-            name.setTextColor(Color.parseColor("#F3F2B0"));
+            name.setTextColor(BLACK);
+            name.setBackgroundColor(Color.parseColor("#FFFFFF"));
    }
 
         return convertView;

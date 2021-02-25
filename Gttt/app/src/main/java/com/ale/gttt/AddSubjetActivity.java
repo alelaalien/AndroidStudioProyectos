@@ -26,13 +26,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ale.gttt.Interfaces.ISEvent;
 import com.ale.gttt.Interfaces.ISSubjet;
+import com.ale.gttt.Interfaces.ISTeacher;
 import com.ale.gttt.Interfaces.ISUser;
 import com.ale.gttt.Session.SharedPreferenceManager;
 import com.ale.gttt.Tools.AuxAdapter;
 import com.ale.gttt.Tools.Utilities;
 import com.ale.gttt.entities.AuxiliarSch;
+import com.ale.gttt.entities.Event;
 import com.ale.gttt.entities.Subjet;
+import com.ale.gttt.entities.Teacher;
 import com.ale.gttt.io.ServiceBA;
 import com.google.gson.Gson;
 
@@ -55,9 +59,8 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
     private ListView listdias;
     private CheckBox cbhc;
     private  ArrayList<String> data;
-    private ArrayList<AuxiliarSch> editValues;
+    private ArrayList<Teacher> teachlist;
     private ArrayList<AuxiliarSch> suplist = new ArrayList<>();
-   private ArrayList<AuxiliarSch> a = new ArrayList<>();
     private String data2;
     private ArrayList<AuxiliarSch> values= new ArrayList<>();
     MediaPlayer pop, borrar, clic;
@@ -75,6 +78,58 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
         Verifications();
     }
 
+    private void Init() {
+        u=new Utilities();
+        btndeletesubjet=findViewById(R.id.btndeletesubjet);
+        btnstarttime=  findViewById(R.id.btnstarttime);
+        btnaddtime=  findViewById(R.id.btnaddtime);
+        btnendtime=  findViewById(R.id.btnendtime);
+        etet=findViewById(R.id.etet);
+        etst= findViewById(R.id.etst);
+        btncancelar= findViewById(R.id.btncancelarmateria);
+        btnguardar=  findViewById(R.id.btnas);
+        etst= findViewById(R.id.etst);
+        etnombremateria=  findViewById(R.id.etnombremateria);
+        spindia=  findViewById(R.id.spindia);
+        listdias=  findViewById(R.id.listdias);
+        cbhc=findViewById(R.id.cbhc);
+        tvtitle=findViewById(R.id.tv_title_subjet);
+        idU=SharedPreferenceManager.getInstance(getApplicationContext()).GetUser().getId();
+        Intent dataintent= getIntent();
+        data=dataintent.getStringArrayListExtra("arraydata");
+        Config();
+    }
+
+    public  void Config(){
+
+        btnstarttime.setOnClickListener(this);
+        btnendtime.setOnClickListener(this);
+        pop=MediaPlayer.create(this, R.raw.pop);
+        borrar=MediaPlayer.create(this, R.raw.borrar);
+        clic=MediaPlayer.create(this, R.raw.clic);
+        btnaddtime.setOnClickListener(this);
+        btncancelar.setOnClickListener(this);
+        btnguardar.setOnClickListener(this);
+        btndeletesubjet.setOnClickListener(this);
+        listdias.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if (btncancelar.getText().toString().equals("Cancelar")){
+                    values.remove(position);
+                    adapter.notifyDataSetChanged();
+                }else {
+                    boolean val= CheckData();
+                    if (val){
+                        suplist.remove(position);
+                        adapter.notifyDataSetChanged();
+
+                        Stack(suplist);
+                    }
+                }
+            }
+        });
+    }
 
     private void Verifications() {
 
@@ -106,9 +161,10 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
             btndeletesubjet.setVisibility(View.INVISIBLE);
 
         }else{
-            title="Editar/Eliminar Materia";
-            btnEditSave="Guardar Cambios";
+            title="Editar Materia";
+            btnEditSave="Editar";
             btnCancelReturn="Volver";
+            Enabled(false);
             etnombremateria.setText(data.get(0));
             Extra();
             boolean b=CheckData();
@@ -137,66 +193,6 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
             a= new ArrayList<>();
         }
         return a;
-
-    }
-
-    private void Init() {
-        u=new Utilities();
-        btndeletesubjet=findViewById(R.id.btndeletesubjet);
-        btnstarttime=  findViewById(R.id.btnstarttime);
-        btnaddtime=  findViewById(R.id.btnaddtime);
-        btnendtime=  findViewById(R.id.btnendtime);
-        etet=findViewById(R.id.etet);
-        etst= findViewById(R.id.etst);
-        btncancelar= findViewById(R.id.btncancelarmateria);
-        btnguardar=  findViewById(R.id.btnas);
-
-        etst= findViewById(R.id.etst);
-        etnombremateria=  findViewById(R.id.etnombremateria);
-        spindia=  findViewById(R.id.spindia);
-        listdias=  findViewById(R.id.listdias);
-        cbhc=findViewById(R.id.cbhc);
-        tvtitle=findViewById(R.id.tv_title_subjet);
-        idU=SharedPreferenceManager.getInstance(getApplicationContext()).GetUser().getId();
-        Intent dataintent= getIntent();
-        data=dataintent.getStringArrayListExtra("arraydata");
-
-        Config();
-    }
-
-    public  void Config()
-    {
-        btnstarttime.setOnClickListener(this);
-        btnendtime.setOnClickListener(this);
-        pop=MediaPlayer.create(this, R.raw.pop);
-        borrar=MediaPlayer.create(this, R.raw.borrar);
-        clic=MediaPlayer.create(this, R.raw.clic);
-        btnaddtime.setOnClickListener(this);
-        btncancelar.setOnClickListener(this);
-        btnguardar.setOnClickListener(this);
-        btndeletesubjet.setOnClickListener(this);
-
-
-                listdias.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                if (btncancelar.getText().toString().equals("Cancelar")){
-                    values.remove(position);
-                    adapter.notifyDataSetChanged();
-                }else {
-                    boolean val= CheckData();
-                    if (val){
-                        suplist.remove(position);
-                        adapter.notifyDataSetChanged();
-                        Log.d("va", a.size()+"");     Log.d("va",  " "+position);
-                        Stack(suplist);
-                    }
-                }
-            }
-        });
-
-
 
     }
 
@@ -235,7 +231,31 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
         }
         if (v==btnguardar){
             clic.start();
-            GetValues();
+            if (btnguardar.getText().toString().equals("Volver")){
+                String action, acept, edit;
+                action=btnguardar.getText().toString();
+                acept="Aceptar";
+                edit="Editar";
+
+
+
+                if(action.equals("Editar")){
+                    Enabled(true);
+                    btnguardar.setText(acept);
+                }else if(action.equals("Guardar")||action.equals("Aceptar")){
+                    Enabled(false);
+                    GetValues();
+                    btnguardar.setText(edit);
+                }
+            }else {
+                GetValues();
+            }
+
+
+
+
+
+
         }
         if (v==btncancelar){
             borrar.start();
@@ -257,15 +277,18 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
+    private void Enabled(boolean b) {
+        etnombremateria.setEnabled(b);
+        etet.setEnabled(b);
+        etst.setEnabled(b);
+    }
+
     private void CloseInput() {
         InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
         inputMethodManager.hideSoftInputFromWindow(etet.getWindowToken(), 0);
 
     }
-
-
-
 
     private ArrayList<AuxiliarSch> SupListViewValues(){
       Adapter a=  listdias.getAdapter();
@@ -281,6 +304,7 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
         }
 return suplist;
     }
+
     private void GetValues (){
 
         if (etnombremateria.getText().toString().trim().length() > 0){
@@ -304,6 +328,7 @@ return suplist;
                 Save(subjet);
             }else if (value.equals("Volver")) {
 
+
                 String classes = new Gson().toJson(suplist);
                 if (suplist!=null){
                     subjet.setClass_(classes);
@@ -322,12 +347,11 @@ return suplist;
         }
       }
 
-
-
     private void Empty() {
         spindia.setSelection(0);
         etst.setText("");
         etet.setText("");
+
 
     }
 
@@ -347,8 +371,8 @@ return suplist;
         });
 
         return auxArray;
-
     }
+
     private AuxAdapter Stack(ArrayList<AuxiliarSch> value){
         adapter=new AuxAdapter(getApplicationContext(), value);
         listdias.setAdapter(adapter);
@@ -363,7 +387,7 @@ return suplist;
                 values.add(auxiliar);
                 } Stack(values);
 
-        }else{////////////////////////////////////////////////////edit////////////////////////
+        }else{
 
 
             if (etst.getText().toString().trim().length() > 0&& etet.getText().toString().trim().length() > 0) {
@@ -403,6 +427,8 @@ return suplist;
                 if (response.code()==200){
                     Toast.makeText(getApplicationContext(), "Hecho!", Toast.LENGTH_LONG).show();
                     Empty();
+                    u.ClearTask(getApplicationContext());
+
                 }else if(response.code()==404){
                     Toast.makeText(getApplicationContext(), "Recursos no encontrados", Toast.LENGTH_LONG).show();
                 }else if(response.code()==500){
@@ -417,6 +443,7 @@ return suplist;
         });
 
     }
+
     private void Edit(Subjet subjet) {
         Call<Subjet> call= ServiceBA.getInstance().createService(ISSubjet.class).Update(subjet.getId(), subjet);
         call.enqueue(new Callback<Subjet>() {
@@ -425,6 +452,7 @@ return suplist;
                 if (response.code()==200){
                     Toast.makeText(getApplicationContext(), "Cambios realizados!", Toast.LENGTH_LONG).show();
                     Empty();
+                    u.ClearTask(getApplicationContext());
                 }else if(response.code()==404){
                     Toast.makeText(getApplicationContext(), "Recurso no encontrado", Toast.LENGTH_LONG).show();
                 }else if(response.code()==500){
@@ -448,6 +476,7 @@ return suplist;
         str = firstLtr + restLtrs;
         return str;
     }
+
     public void Alert(){
 
 
@@ -459,7 +488,7 @@ return suplist;
                                 int id= Integer.parseInt(data.get(1));
 
                                 try {
-                                    Delete(id);
+                                    DeleteEvents(id);
                                    u.ClearTask(getApplicationContext());
 
                                 }catch (Exception e){
@@ -479,15 +508,16 @@ return suplist;
                 });
                 AlertDialog title= dialog.create();
                 title.setTitle("Confirmar acción");
+        title.setMessage("Los eventos relacionados se perderán");
                 title.show();
     }
 
-        public void Delete(int id) {
+    public void Delete(int id) {
             Call<Void> call= ServiceBA.getInstance().createService(ISSubjet.class).Delete(id);
             call.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-
+                    u.ClearTask(getApplicationContext());
                 }
 
                 @Override
@@ -495,6 +525,111 @@ return suplist;
                     Toast.makeText(getApplicationContext(), "error: "+ t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
+
+    }
+
+    public void onBackPressed( ){
+        u.ClearTask(getApplicationContext());
+    }
+
+    private void DeleteEvents(int id){
+        Call<Void> call= ServiceBA.getInstance().createService(ISEvent.class).DeleteBySubjet(idU, id);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code()==200){
+                    GetTeachers(id);
+                }else if (response.code()==404){
+                    Toast.makeText(getApplicationContext(), "Recurso no encontrado", Toast.LENGTH_LONG).show();
+                }else if (response.code()==500){
+                    Toast.makeText(getApplicationContext(), "Error del servidor. Reintenar", Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Error "+t.getMessage(), Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+    }
+
+    private void GetTeachers(int id){
+        System.out.println("getTachers");
+        teachlist= new ArrayList<>();
+        Call<ArrayList<Teacher>> call= ServiceBA.getInstance().createService(ISTeacher.class).GetAllFilters(idU, id);
+        call.enqueue(new Callback<ArrayList<Teacher>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Teacher>> call, Response<ArrayList<Teacher>> response) {
+                if (response.code()==200){
+                    teachlist.addAll(response.body());
+                    System.out.println("getTachers "+ teachlist.size());
+                    UpdateAll(teachlist, id);
+                }else if (response.code()==404){
+                    Toast.makeText(getApplicationContext(), "Recurso no encontrado", Toast.LENGTH_LONG).show();
+                }else if (response.code()==500){
+                    Toast.makeText(getApplicationContext(), "Error del servidor. Reintenar", Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Teacher>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Error "+t.getMessage(), Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+    }
+
+    private void UpdateAll(ArrayList<Teacher> teachlist,int  id) {
+        System.out.println("getTachers "+ teachlist.size());
+        for (Teacher t: teachlist
+             ) {
+            t.setSubjet(0);
+        }
+        EditTeachers(teachlist, id );
+
+    }
+
+    private void EditTeachers(ArrayList<Teacher> teachlist,int id) {
+
+        for (Teacher t:teachlist) {
+           UpdateTeachers(t.getId(), t);
+
+        }
+
+        Delete(id);
+        u.ClearTask(getApplicationContext());
+    }
+
+    private void UpdateTeachers(Integer id, Teacher t) {
+
+        Call<Void> call=ServiceBA.getInstance().createService(ISTeacher.class).Update(id, t);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code()==200){
+                    Toast.makeText(getApplicationContext(), "Docentes actualizados", Toast.LENGTH_LONG).show();
+
+                }else if (response.code()==404){
+                    Toast.makeText(getApplicationContext(), "Recurso no encontrado", Toast.LENGTH_LONG).show();
+
+                }else if (response.code()==500){
+                    Toast.makeText(getApplicationContext(), "Error del servidor: 500", Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Sin conexión", Toast.LENGTH_LONG).show();
+
+            }
+        });
 
     }
 

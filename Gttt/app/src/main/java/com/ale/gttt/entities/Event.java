@@ -4,24 +4,26 @@
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
+
         public class Event {
 
             @SerializedName("id")
             @Expose
             private int id;
-
             @SerializedName("idSubjet")
             @Expose
-            private Integer idSubjet;
+            private int idSubjet;
             @SerializedName("date")
             @Expose
             private String date;
             @SerializedName("typeOf")
             @Expose
             private Integer typeOf;
-            @SerializedName("idTeacher")
+            @SerializedName("idUser")
             @Expose
-            private Integer idTeacher;
+            private Integer idUser;
             @SerializedName("title")
             @Expose
             private String title;
@@ -37,11 +39,11 @@ import com.google.gson.annotations.SerializedName;
 
 
 
-            public Integer getIdSubjet() {
+            public int getIdSubjet() {
                 return idSubjet;
             }
 
-            public void setIdSubjet(Integer idSubjet) {
+            public void setIdSubjet(int idSubjet) {
                 this.idSubjet = idSubjet;
             }
 
@@ -69,12 +71,12 @@ import com.google.gson.annotations.SerializedName;
                 this.typeOf = typeOf;
             }
 
-            public Integer getIdTeacher() {
-                return idTeacher;
+            public Integer getIdUser() {
+                return idUser;
             }
 
-            public void setIdTeacher(Integer idTeacher) {
-                this.idTeacher = idTeacher;
+            public void setIdUser(Integer idUser) {
+                this.idUser = idUser;
             }
 
             public String getTitle() {

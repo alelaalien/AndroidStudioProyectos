@@ -3,6 +3,7 @@ package com.ale.gttt.Interfaces;
 import com.ale.gttt.entities.Event;
 import com.ale.gttt.entities.Subjet;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -17,7 +18,16 @@ import retrofit2.http.Query;
 public interface ISEvent {
 
     @GET("api/event")
-    Call<List<Event>> GetAll();
+    Call<ArrayList<Event>> GetAll(@Query("IdUser") int idUser);
+
+    @GET("api/event")
+    Call<ArrayList<Event>> GetAllParam(@Query("IdUser") int idUser, @Query("priority") int priority);
+
+    @GET("api/event/")
+    Call<ArrayList<Event>> SearchSubjet(@Query("IdUser") int idUser,  @Query("idSubjet") int idsubjet);
+
+    @GET("api/event/")
+    Call<ArrayList<Event>> GetTypeOf(@Query("IdUser") int idUser,  @Query("typeOf") int type);
 
     @POST("api/event")
     Call<Void> Create(@Body Event e);
@@ -28,6 +38,9 @@ public interface ISEvent {
     @DELETE("api/event/deleteall/")
     Call<Void> DeleteAll(@Query("IdUser") int idUser);
 
+    @DELETE("api/event/deleteall/")
+    Call<Void> DeleteBySubjet(@Query("IdUser") int idUser, @Query("IdSubjet") int idSubjet);
+
     @PUT("api/event")
-    Call<Void> Update(@Query("id") int id, @Body Event u);
+    Call<Event> Update(@Query("id") int id, @Body Event u);
 }

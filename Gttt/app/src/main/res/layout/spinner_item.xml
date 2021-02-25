@@ -4,13 +4,17 @@
     style="?android:attr/spinnerItemStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorBlack"
-    android:ellipsize="middle"
-    android:fontFamily="@font/habibi"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:scrollbarSize="10sp"
     android:singleLine="true"
+    android:ellipsize="marquee"
+    android:background="@color/colorBlack"
+    android:fontFamily="@font/habibi"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp"
+    android:scrollbarStyle="insideInset"
+    android:text=""
     android:textAlignment="center"
     android:textColor="@color/colorWhite"
-    android:textSize="20sp" />
+    android:textSize="20sp"
+    android:textStyle="bold" />
+
+

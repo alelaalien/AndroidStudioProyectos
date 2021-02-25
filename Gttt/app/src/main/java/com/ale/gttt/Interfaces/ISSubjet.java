@@ -16,7 +16,7 @@ import retrofit2.http.Query;
 public interface ISSubjet {
 
     @GET("api/subjet/")
-    Call<ArrayList<Subjet>> GetAll(@Query("IdUser") int idUser, @Query("Name") String name, @Query("Active") int active);
+    Call<ArrayList<Subjet>> GetAll(@Query("IdUser") int idUser, @Query("name") String name, @Query("Active") int active);
 
     @GET("api/subjet/")
     Call<ArrayList<Subjet>> GetById(@Query("Id") int id);

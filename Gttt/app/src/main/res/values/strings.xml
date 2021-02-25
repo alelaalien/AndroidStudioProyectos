@@ -9,9 +9,12 @@
     <string name="item2">Cerrar Sesión</string>
     <string name="mname">nombre</string>
     <string name="msur">apellido</string>
+    <string name="title_">Titulo:</string>
     <string name="mnick">nick</string>
+    <string name="elim">Eliminar</string>
     <string name="mall">todos</string>
     <string name="hinselsub">Seleccionar...</string>
+    <string name="nombre">nombre</string>
     <string name="msub">materia</string>
     <string name="nombre_">Nombre:</string>
     <string name="apellido_">Apellido:</string>
@@ -61,6 +64,16 @@
     <string name="Todos">Todos</string>
     <string name="Proritarios">Proritarios</string>
     <string name="Ir">Ir</string>
+
+    <string name="mclase">CLASE</string>
+    <string name="mprioridad">PRIORIDAD</string>
+    <string name="mmateria">MATERIA</string>
+    <string name="mfecha">FECHA</string>
+    <string name="MHORA">HORA</string>
+    <string name="MTITULO">TITULO</string>
+    <string name="MTEMARIO">TEMARIO</string>
+
+
     <string name="Tpracticos">T. Prácticos</string>
     <string name="blanco"> </string>
     <string name="Restaurarcontrasena">Restaurar contraseña</string>
@@ -85,16 +98,6 @@
     <string name="miercoles">Miercoles</string>
     <string name="Viernes">Viernes</string>
     <string name="Jueves">Jueves</string>
-    <string name="ocho">08&#8211;10</string>
-
-    <string name="diez">10&#8211;12</string>
-
-    <string name="doce">12&#8211;13</string>
-    <string name="quince">15&#8211;17</string>
-
-    <string name="diecisiete">17&#8211;19</string>
-
-    <string name="diecinueve">19&#8211;21</string>
 
 
     <string name="salir">Salir</string>

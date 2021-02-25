@@ -95,6 +95,7 @@ private EditText etnick, etpass1, etpass2, etemail;
             u.setNick(name);
             u.setEmail(email);
             u.setPassword(pass1);
+            u.setIdSecurity(6);
 
         }
 

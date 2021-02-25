@@ -4,7 +4,273 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBlack"
     tools:context=".AddSubjetActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="55dp"
+        android:background="@drawable/img1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_subjet">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ScrollView
+                android:id="@+id/scrollView2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/constraintLayout2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorBlack"
+                        android:orientation="vertical"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <EditText
+                            android:id="@+id/etnombremateria"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="30dp"
+
+                            android:layout_marginEnd="20dp"
+                            android:ems="10"
+                            android:fontFamily="@font/habibi"
+                            android:hint="@string/nombrep"
+                            android:importantForAutofill="no"
+                            android:inputType="textPersonName"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="24sp" />
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/linearLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="89dp"
+                            android:orientation="horizontal">
+
+                            <Spinner
+                                android:id="@+id/spindia"
+                                style="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar"
+                                android:layout_width="0dp"
+                                android:layout_height="50dp"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginTop="24dp"
+                                android:layout_marginEnd="20dp"
+                                android:background="@color/colorDark"
+                                android:entries="@array/week"
+                                android:fontFamily="@font/habibi"
+                                android:scrollbarStyle="insideOverlay"
+                                android:textAlignment="center"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:layout_conversion_absoluteHeight="50dp"
+                                tools:layout_conversion_absoluteWidth="150dp" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/tvempty"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center" />
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent">
+
+                            <ListView
+                                android:id="@+id/listdias"
+                                android:layout_width="0dp"
+                                android:layout_height="180dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginBottom="16dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="@+id/btnaddtime"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="@+id/btnendtime"
+                                app:layout_constraintTop_toBottomOf="@+id/cbhc"
+                                app:layout_constraintVertical_bias="0.0" />
+
+                            <Button
+                                android:id="@+id/btnendtime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginStart="20dp"
+                                android:layout_marginTop="20dp"
+                                android:background="@color/colorNone"
+                                android:fontFamily="@font/habibi"
+                                android:text="@string/Fin_"
+                                android:textColor="@color/colorPrimahghgryDark2"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/btnstarttime" />
+
+                            <EditText
+                                android:id="@+id/etet"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+
+                                android:layout_marginEnd="20dp"
+                                android:ems="10"
+                                android:fontFamily="@font/habibi"
+                                android:inputType="textPersonName"
+                                android:textColor="@color/colorWhite"
+                                app:layout_constraintBottom_toBottomOf="@+id/btnendtime"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="1.0"
+                                app:layout_constraintStart_toEndOf="@+id/btnstarttime"
+                                app:layout_constraintTop_toTopOf="@+id/btnendtime" />
+
+                            <Button
+                                android:id="@+id/btnstarttime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:background="@color/colorNone"
+                                android:fontFamily="@font/habibi"
+                                android:text="@string/Inicio_"
+                                android:textColor="@color/colorPrimahghgryDark2"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <EditText
+                                android:id="@+id/etst"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginEnd="20dp"
+                                android:ems="10"
+                                android:fontFamily="@font/habibi"
+                                android:inputType="textPersonName"
+                                android:textColor="@color/colorWhite"
+                                app:layout_constraintBottom_toBottomOf="@+id/btnstarttime"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.887"
+                                app:layout_constraintStart_toEndOf="@+id/btnstarttime"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <Button
+                                android:id="@+id/btnaddtime"
+                                android:layout_width="145dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:background="@color/colorGray"
+                                android:fontFamily="@font/habibi"
+                                android:text="@string/Agregar"
+                                android:textColor="@color/colorPrimahghgryDark2"
+                                app:layout_constraintBottom_toBottomOf="@+id/cbhc"
+                                app:layout_constraintEnd_toEndOf="@+id/etet"
+                                app:layout_constraintHorizontal_bias="1.0"
+                                app:layout_constraintStart_toEndOf="@+id/cbhc"
+                                app:layout_constraintTop_toBottomOf="@+id/etet" />
+
+
+                            <CheckBox
+                                android:id="@+id/cbhc"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:fontFamily="@font/habibi"
+                                android:text="@string/consultas"
+                                android:textColor="@color/colorPrimahghgryDark2"
+                                android:textSize="18sp"
+                                app:layout_constraintStart_toStartOf="@+id/btnendtime"
+                                app:layout_constraintTop_toBottomOf="@+id/btnendtime" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="195dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scrollView2">
+
+                <Button
+                    android:id="@+id/btndeletesubjet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/colorHint"
+                    android:fontFamily="@font/habibi"
+                    android:text="@string/elim"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorGold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btncancelarmateria" />
+
+                <Button
+                    android:id="@+id/btnas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/colorBlack"
+                    android:backgroundTint="@color/colorBlack"
+                    android:fontFamily="@font/habibi"
+                    android:text="@string/guardar"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorGold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btncancelarmateria"
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/colorBlack"
+                    android:fontFamily="@font/habibi"
+                    android:text="@string/cancelar"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorGold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnas" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/tv_title_subjet"
@@ -13,232 +279,9 @@
         android:background="@color/colorBlack"
         android:fontFamily="@font/habibi"
         android:textAlignment="center"
-        android:textColor="@color/colorGold"
+        android:textColor="@color/colorPrimahghgryDark2"
         android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title_subjet">
-
-        <LinearLayout
-            android:id="@+id/constraintLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#C9F3EEEE"
-            android:orientation="vertical"
-            android:visibility="visible">
-
-            <EditText
-                android:id="@+id/etnombremateria"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
-
-                android:layout_marginEnd="20dp"
-                android:ems="10"
-                android:fontFamily="@font/habibi"
-                android:hint="@string/nombrep"
-                android:importantForAutofill="no"
-                android:inputType="textPersonName"
-                android:textAlignment="center"
-                android:textSize="24sp" />
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="89dp"
-                android:orientation="horizontal">
-
-                <Spinner
-                    android:id="@+id/spindia"
-                    style="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="20dp"
-                    android:background="@color/colorDark"
-                    android:entries="@array/week"
-                    android:fontFamily="@font/habibi"
-                    android:scrollbarStyle="insideOverlay"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:layout_conversion_absoluteHeight="50dp"
-                    tools:layout_conversion_absoluteWidth="150dp" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/tvempty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center" />
-<!--                android:textColor="@color/design_default_color_error" -->
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <ListView
-                    android:id="@+id/listdias"
-                    android:layout_width="0dp"
-                    android:layout_height="370dp"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintEnd_toEndOf="@+id/btnaddtime"
-                    app:layout_constraintStart_toStartOf="@+id/btnendtime"
-                    app:layout_constraintTop_toBottomOf="@+id/cbhc" />
-
-                <Button
-                    android:id="@+id/btnendtime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/colorGray"
-                    android:fontFamily="@font/habibi"
-                    android:text="@string/Fin_"
-                    android:textColor="@color/colorGold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnstarttime" />
-
-                <EditText
-                    android:id="@+id/etet"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:ems="10"
-                    android:fontFamily="@font/habibi"
-                    android:inputType="textPersonName"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/btnstarttime"
-                    app:layout_constraintTop_toBottomOf="@+id/etst" />
-
-                <Button
-                    android:id="@+id/btnstarttime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:background="@color/colorGray"
-                    android:fontFamily="@font/habibi"
-                    android:text="@string/Inicio_"
-                    android:textColor="@color/colorGold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <EditText
-                    android:id="@+id/etst"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="20dp"
-                    android:ems="10"
-                    android:fontFamily="@font/habibi"
-                    android:inputType="textPersonName"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.887"
-                    app:layout_constraintStart_toEndOf="@+id/btnstarttime"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:id="@+id/btnaddtime"
-                    android:layout_width="145dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:background="@color/colorGray"
-                    android:fontFamily="@font/habibi"
-                    android:text="@string/Agregar"
-                    android:textColor="@color/colorGold"
-                    app:layout_constraintEnd_toEndOf="@+id/etet"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/cbhc"
-                    app:layout_constraintTop_toBottomOf="@+id/etet" />
-
-
-                <CheckBox
-                    android:id="@+id/cbhc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/habibi"
-                    android:text="@string/consultas"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@+id/btnendtime"
-                    app:layout_constraintTop_toBottomOf="@+id/btnendtime" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </LinearLayout>
-    </ScrollView>
-
-    <Button
-        android:id="@+id/btncancelarmateria"
-        android:layout_width="match_parent"
-        android:layout_height="51dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="32dp"
-        android:backgroundTint="@color/colorGray"
-        android:fontFamily="@font/habibi"
-        android:text="@string/cancelar"
-        android:textAlignment="center"
-        android:textColor="@color/colorGold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btnas"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/colorBlack"
-        android:backgroundTint="@color/colorBlack"
-        android:fontFamily="@font/habibi"
-        android:text="@string/guardar"
-        android:textAlignment="center"
-        android:textColor="@color/colorGold"
-        app:layout_constraintBottom_toTopOf="@+id/btndeletesubjet"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btndeletesubjet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/colorHint"
-        android:fontFamily="@font/habibi"
-        android:text="@string/guardar"
-        android:textAlignment="center"
-        android:textColor="@color/colorGold"
-        app:layout_constraintBottom_toTopOf="@+id/btncancelarmateria"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
