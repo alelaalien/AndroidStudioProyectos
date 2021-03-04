@@ -24,7 +24,7 @@ public interface ISTeacher {
 
 
     @POST("api/teacher")
-    Call<Void> Create(@Body Teacher t);
+    Call<Teacher> Create(@Body Teacher t);
 
     @DELETE("api/teacher/{id}")
     Call<Void> Delete(@Path("id") int id);

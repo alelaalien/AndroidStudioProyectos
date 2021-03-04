@@ -17,32 +17,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public final class ServiceBA {
-     public static final String BASE_URL= "http://192.168.1.102:45455/";
+     private static final String BASE_URL= "http://192.168.1.102:45455/";
      private static ServiceBA intance;
      private Retrofit retrofit;
-     private HttpLoggingInterceptor loggingInterceptor;
-     private OkHttpClient.Builder httpClientBuilder;
-     private static final String AUTH_ADMIN= "Bearer "+ Base64.encodeToString(("admin:adminale").getBytes() , Base64.NO_WRAP);
-     private static final String AUTH_USER= "Bearer "+ Base64.encodeToString(("user:user").getBytes() , Base64.NO_WRAP);
 
      private ServiceBA()  {
-          loggingInterceptor= new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
-          httpClientBuilder= new OkHttpClient.Builder().addInterceptor(new Interceptor() {
-               @NotNull
-               @Override
-               public Response intercept(@NotNull Chain chain) throws IOException {
-                    Request original= chain.request();
-                    Request.Builder requestB= original.newBuilder()
-                            .addHeader("Authorization",AUTH_USER)
-                            .method(original.method(), original.body());
-                    Request request=requestB.build();
-                    return chain.proceed(request);
-               }
-          })
-                  .connectTimeout(200, TimeUnit.SECONDS)
-                  .writeTimeout(200, TimeUnit.SECONDS)
-                  .readTimeout(300, TimeUnit.SECONDS);
-
 
           retrofit= new Retrofit.Builder()
                   .baseUrl(BASE_URL)
@@ -60,6 +39,23 @@ public final class ServiceBA {
           return  retrofit.create(serviceClass);
      }
 
-
-
 }
+//  private static final String AUTH_USER= "Bearer "+ Base64.encodeToString(("user:user").getBytes() , Base64.NO_WRAP);
+
+//          HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+//          OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
+//               @NotNull
+//               @Override
+//               public Response intercept(@NotNull Chain chain) throws IOException {
+//                    Request original = chain.request();
+//                    Request.Builder requestB = original.newBuilder()
+//                            .addHeader("Authorization", AUTH_USER)
+//                            .method(original.method(), original.body());
+//                    Request request = requestB.build();
+//                    return chain.proceed(request);
+//               }
+//          })
+//                  .connectTimeout(200, TimeUnit.SECONDS)
+//                  .writeTimeout(200, TimeUnit.SECONDS)
+//                  .readTimeout(300, TimeUnit.SECONDS);
+

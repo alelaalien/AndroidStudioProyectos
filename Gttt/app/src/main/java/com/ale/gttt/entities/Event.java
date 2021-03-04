@@ -18,9 +18,9 @@ import java.util.Date;
             @SerializedName("date")
             @Expose
             private String date;
-            @SerializedName("typeOf")
+            @SerializedName("typeId")
             @Expose
-            private Integer typeOf;
+            private Integer typeId;
             @SerializedName("idUser")
             @Expose
             private Integer idUser;
@@ -37,7 +37,13 @@ import java.util.Date;
             @Expose
             private Integer active;
 
+            public Integer getTypeId() {
+                return typeId;
+            }
 
+            public void setTypeId(Integer typeId) {
+                this.typeId = typeId;
+            }
 
             public int getIdSubjet() {
                 return idSubjet;
@@ -61,14 +67,6 @@ import java.util.Date;
 
             public void setDate(String date) {
                 this.date = date;
-            }
-
-            public Integer getTypeOf() {
-                return typeOf;
-            }
-
-            public void setTypeOf(Integer typeOf) {
-                this.typeOf = typeOf;
             }
 
             public Integer getIdUser() {

@@ -3,25 +3,22 @@ package com.ale.gttt.entities;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class BT {
-    @SerializedName("user")
+public class Login {
+    @SerializedName("email")
     @Expose
-    private String user;
+    private String email;
     @SerializedName("password")
     @Expose
     private String password;
 
-    public BT(String user, String password) {
-        this.user = user;
-        this.password = password;
+
+
+    public String getEmail() {
+        return email;
     }
 
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -31,5 +28,4 @@ public class BT {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }

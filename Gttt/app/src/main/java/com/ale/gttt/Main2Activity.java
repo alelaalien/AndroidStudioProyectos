@@ -10,15 +10,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.ale.gttt.Interfaces.ISSecurity;
 import com.ale.gttt.Interfaces.ISSession;
+import com.ale.gttt.Interfaces.ISUser;
 import com.ale.gttt.Session.SharedPreferenceManager;
-import com.ale.gttt.entities.BT;
+import com.ale.gttt.entities.Login;
+import com.ale.gttt.entities.Token;
 import com.ale.gttt.entities.User;
 import com.ale.gttt.io.ServiceBA;
 
-import java.util.List;
+import java.util.ArrayList;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,7 +29,11 @@ import retrofit2.Response;
 public class Main2Activity extends AppCompatActivity {
 private Button  btnaceptaringreso, btncrearcuenta;
 MediaPlayer mp, intro;
+private int id;
+
 private EditText etnickingreso, etpassingreso;
+private String token;
+private User u;
 
 
     @Override
@@ -56,22 +61,40 @@ private EditText etnickingreso, etpassingreso;
     }
 
     private void getToken() {
-        String user= "user";
-        String pass="10000.cskJ5tiHOasWJo5IfzIeOQ==.t0q9fEMkNltHY5r6JFSlbbzb+yh5OeHdf0k4TLLJq4o=";
-        BT bt= new BT(user, pass);
+        ArrayList<Token> array= new ArrayList<>();
+        String email= etnickingreso.getText().toString();
+        String pass=etpassingreso.getText().toString();
+        Login l=new Login();
+        l.setEmail(email);
+        l.setPassword(pass);
 
-        Call<List<String>> call= ServiceBA.getInstance().createService(ISSecurity.class).getToken(bt);
-        call.enqueue(new Callback<List<String>>() {
+
+        Call<Token> call= ServiceBA.getInstance().createService(ISSession.class).Login(l);
+        call.enqueue(new Callback<Token>() {
             @Override
-            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
-                Toast.makeText(getApplicationContext(), "Validado", Toast.LENGTH_SHORT ).show();
+            public void onResponse(Call<Token> call, Response<Token> response) {
+                if (response.code()==200){
+
+                    token= response.body().getToken();
+                    id=response.body().getId();
+
+                    SharedPreferenceManager.getInstance(getApplicationContext()).SetToken("Bearer "+token);
+                    Login(id, token);
+
+                }else  if (response.code()==401){
+                    Toast.makeText(getApplicationContext(), "No autorizado " , Toast.LENGTH_SHORT ).show();
+                    Log.d("no " ,  "401");
+                }else  if (response.code()==500){
+                    Toast.makeText(getApplicationContext(), " Error 500" , Toast.LENGTH_SHORT ).show();
+                    Log.d("no " ,  "500");
+                }
 
             }
 
             @Override
-            public void onFailure(Call<List<String>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Error al validar", Toast.LENGTH_SHORT ).show();
-                            }
+            public void onFailure(Call<Token>call, Throwable t) {
+                Log.d("fail " ,  t.getMessage());
+            }
         });
     }
 
@@ -83,6 +106,7 @@ private EditText etnickingreso, etpassingreso;
         etpassingreso=findViewById(R.id.etpassingreso2);
     Config();
     }
+
     private void Config(){
         btncrearcuenta.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,35 +119,33 @@ private EditText etnickingreso, etpassingreso;
             @Override
             public void onClick(View v) {
                 mp.start();
-if (etnickingreso.getText().toString().trim().length() > 0&&etpassingreso.getText().toString().trim().length() >0){
-    Login();
-}else{
-    Toast.makeText(getApplicationContext(), "Campos vacíos", Toast.LENGTH_SHORT).show();
-}
+                if (etnickingreso.getText().toString().trim().length() > 0&&etpassingreso.getText().toString().trim().length() >0){
 
-
-
-            }
+                    getToken();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Campos vacíos", Toast.LENGTH_SHORT).show();
+                }
+         }
         });
     }
 
-    private void Login(){
-        String nick=String.valueOf(etnickingreso.getText());
-        String pass=String.valueOf(etpassingreso.getText());
-        User u=new User();
+    private void Login(int id, String t){
 
-        u.setEmail(nick);
-        u.setPassword(pass);
-        Call<User> call = ServiceBA.getInstance().createService(ISSession.class).Login(u);
+    u=new User( );
+
+
+        Call<User> call = ServiceBA.getInstance().createService(ISUser.class).GetById(id);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+
                 if (response.code()==200){
-                    Log.d("inicio", "Usuario encontrado");
+                     u=response.body();
+
+
                     SharedPreferenceManager.getInstance(getApplicationContext())
-                            .SaveUser(response.body());
+                            .SaveUser(u); Log.d("token",  u.getToken()+"");
                     OnStart();
-                 //   startActivity(new Intent(getApplicationContext(), MenuTabActivity.class));
                 }else if(response.code()==404){
                     Toast.makeText(getApplicationContext(), "Usuario no encontrado", Toast.LENGTH_SHORT).show();
                     Log.d("inicio", "Usuario no encontrado");
@@ -132,17 +154,17 @@ if (etnickingreso.getText().toString().trim().length() > 0&&etpassingreso.getTex
                     Log.d("inicio", "Error 500: "+response.code());
                 }else {
                     Toast.makeText(getApplicationContext(), "Error desconocido", Toast.LENGTH_SHORT).show();
-                    Log.d("inicio", "Error desconocido: "+response.code());
+                    Log.d("inicio", "Error : "+response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Log.d("inicio", "Error desconocvvvvvvvvvvvvvido: "+t.getMessage());
+                Log.d("inicio", "Error desconocido: "+t.getMessage());
             }
-        });
+        }); }
 
-    }
+
     protected void OnStart(){
         super.onStart();
         if (SharedPreferenceManager.getInstance(this).IsLoged()){

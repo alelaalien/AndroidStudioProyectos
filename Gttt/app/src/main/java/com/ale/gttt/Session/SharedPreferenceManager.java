@@ -11,6 +11,7 @@ public class SharedPreferenceManager {
     private static final String SHARED_PREFERENCES_NICK="SHARED_PREFERENCES_NICK";
     private static final String SHARED_PREFERENCES_PASSWORD="SHARED_PREFERENCES_PASSWORD";
     private static final String SHARED_PREFERENCES_EMAIL="SHARED_PREFERENCES_EMAIL";
+    private static final String SHARED_PREFERENCES_TOKEN="SHARED_PREFERENCES_TOKEN";
     private SharedPreferences sharedPreferences;
     private static SharedPreferenceManager instance;
     private Context context;
@@ -25,6 +26,10 @@ public class SharedPreferenceManager {
             instance= new SharedPreferenceManager(context);
         }
         return instance;
+    }
+    public void   SetToken(String t){
+        editor.putString(SHARED_PREFERENCES_TOKEN, t);
+        editor.apply();
     }
     public void SaveUser(User u){
 
@@ -49,6 +54,9 @@ public class SharedPreferenceManager {
                 sharedPreferences.getString(SHARED_PREFERENCES_PASSWORD, null)
         );
         return u;
+    }
+    public String GetToken(){
+       return sharedPreferences.getString(SHARED_PREFERENCES_TOKEN, null);
     }
     public void LogOut(){
         editor.clear();

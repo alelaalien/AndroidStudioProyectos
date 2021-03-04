@@ -84,27 +84,15 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/btnsubjet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorBlack"
-                android:fontFamily="@font/habibi"
-                android:text="@string/msub"
-                android:textColor="@color/colorWhite"
-                android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/btnnick"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
                 android:id="@+id/btnviewall"
-                android:layout_width="70dp"
+                android:layout_width="179dp"
 
-                android:layout_height="wrap_content"
+                android:layout_height="47dp"
                 android:background="@color/colorPrimahghgryDark2"
                 android:fontFamily="@font/habibi"
                 android:text="@string/mall"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/btnsubjet"
+                app:layout_constraintStart_toEndOf="@+id/btnnick"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -124,7 +112,45 @@
                 <ListView
                     android:id="@+id/lvteachers"
                     android:layout_width="match_parent"
-                    android:layout_height="718dp" />
+                    android:layout_height="350dp"
+                    android:background="@color/colorBlack">
+
+                </ListView>
+
+                <Button
+                    android:id="@+id/btnvermas"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="0dp"
+                    android:background="@color/colorBlack"
+                    android:fontFamily="@font/habibi"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="60dp"
+                    android:text="@string/Abrir"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/colorGreen"
+                    android:textSize="18sp"
+                    android:textStyle="bold|italic"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/textView25"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/habibi"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/dicta_"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
+
+                <ListView
+                    android:id="@+id/lvss"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp" />
+
             </LinearLayout>
         </ScrollView>
 

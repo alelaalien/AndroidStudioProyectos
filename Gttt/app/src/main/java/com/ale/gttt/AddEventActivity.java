@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -29,10 +30,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ale.gttt.Interfaces.ISEvent;
 import com.ale.gttt.Interfaces.ISSubjet;
+import com.ale.gttt.Interfaces.ISType;
 import com.ale.gttt.Session.SharedPreferenceManager;
+import com.ale.gttt.Tools.Checks;
 import com.ale.gttt.Tools.Utilities;
 import com.ale.gttt.entities.Event;
 import com.ale.gttt.entities.Subjet;
+import com.ale.gttt.entities.TypeOf;
 import com.ale.gttt.io.ServiceBA;
 
 import java.text.ParseException;
@@ -47,18 +51,24 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddEventActivity extends AppCompatActivity  implements View.OnClickListener  {
-private Button   btndelete, btncancelarnuevoevento, btnaceptarnuevoevento, togglenuevoevento;
+private Button   btndelete, btncancelarnuevoevento, btnaceptarnuevoevento, btnselecttype;
 MediaPlayer pop, borrar, clic;
+private String a, datatype;
+private TextView btnaddnew;
+
 private  ArrayList<String> data;
+private  ArrayList<String> backvalues;
 private int hour, minute, day, month, year, idU;
 private String[] listSpin;
 private RadioGroup rgeventonuevo;
 private RadioButton rbaltanuevoevento, rbmedianuevoevento, rbbajanuevoevento;
 private EditText etnotes, etfecha, ethora, ettitle;
-private Spinner spinnuevoevento;
+private Spinner spinnuevoevento, spinnew;
+private int[] rts;
 private ArrayList<Subjet> sublist;
 private ToggleButton tbe;
-private TextView tvevent, tvidsub;
+private TextView tvevent, tvidsub, tvidtype;
+private  int y;
 private Utilities u;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,22 +82,37 @@ private Utilities u;
         btncancelarnuevoevento= findViewById(R.id.btncancelarnuevoevento);
         btndelete=findViewById(R.id.btneventdelete);
         tvidsub=findViewById(R.id.tvidsube);
-        tbe= findViewById(R.id.togglenuevoevento);
+        btnselecttype=findViewById(R.id.btnselecttype);
         ettitle=findViewById(R.id.ettitle);
+        rts=new int[1];
         rgeventonuevo=findViewById(R.id.rgeventonuevo);
         rbaltanuevoevento=findViewById(R.id.rbaltanuevoevento);
         rbbajanuevoevento=findViewById(R.id.rbbajanuevoevento);
         etnotes=findViewById(R.id.etnotes);
+        etnotes.setSelectAllOnFocus(true);
         etfecha=findViewById(R.id.etfecha);
+        a= SharedPreferenceManager.getInstance(getApplicationContext()).GetToken();
         ethora=findViewById(R.id.ethora);
         tvevent=findViewById(R.id.tvtitleevent);
+        btnaddnew=findViewById(R.id.btnaddnew);
         rbmedianuevoevento=findViewById(R.id.rbmedianuevoevento);
+        tvidtype=findViewById(R.id.tvidtype);
         spinnuevoevento=findViewById(R.id.spinnuevoevento);
         u= new Utilities();
         idU= SharedPreferenceManager.getInstance(getApplicationContext()).GetUser().getId();
         Intent dataintent= getIntent();
         data=dataintent.getStringArrayListExtra("arrayE");
+        datatype=dataintent.getStringExtra("types");
+      //  backvalues=dataintent.getStringArrayListExtra("backval");
+       if (backvalues!=null){
+            for(String s:backvalues){
+                System.out.println(s);
+            }
+        }
 
+        if (datatype!=null){
+            btnaddnew.setText(datatype);
+        }
         Config();
         Verifications();
         GetSubjets(null, 0);
@@ -101,6 +126,7 @@ private Utilities u;
         btncancelarnuevoevento.setOnClickListener(this);
         etfecha.setOnClickListener(this);
         ethora.setOnClickListener(this);
+        btnselecttype.setOnClickListener(this);
         btndelete.setOnClickListener(this);
         if(tvevent.getText().toString().equals("Nuevo Evento")){
             Enabled(true);
@@ -111,62 +137,56 @@ private Utilities u;
 
     private void Verifications() {
 
-        if (data!=null){
-            SetTexts(1);
-
-        }else{
-            SetTexts(0);
-        }
+     if (data!=null){
+         SetTexts(1 ); }
+     else{ SetTexts(0 );
+     }
     }
 
-    private void SetTexts(int i) {
+    private void SetTexts(int i ) {
 
         String title, btnEditSave, btnCancelReturn;
         String deleteTitle="Eliminar";
         String ide, idsub,typeof, date,priority, notes, hour, dateString, titlee;
 
         if (i==0){
+            
             title="Nuevo Evento";
             btnEditSave="Guardar";
             btnCancelReturn="Cancelar";
             btndelete.setVisibility(View.INVISIBLE);
-
+        if (backvalues!=null){
+            BackValues(backvalues);
+        }
 
         }else{
             title="Editar Evento";
             btnEditSave="Editar";
             btnCancelReturn="Volver";
-            ide=data.get(0);
-            idsub=data.get(1);//spinner
-            titlee=data.get(2);
-            typeof=data.get(3);
-            Enabled(false);
-            date=data.get(4);
-            priority=data.get(5);
-            notes=data.get(6);
-            int val=Integer.parseInt(typeof);
-            int p=Integer.parseInt(priority);
-            hour=date.substring(date.indexOf("T")+1, date.length());
-            dateString=date.substring(0, date.indexOf("T"));
 
-            if (val==0){
-                tbe.setChecked(false);
-            }else {
-                tbe.setChecked(true);
+ if (backvalues==null){
+     ide=data.get(0);
+     idsub=data.get(1);//spinner
+     Enabled(false);
+     date=data.get(2);
+     priority=data.get(6);
+     notes=data.get(5);
+     titlee=data.get(4);
+     int val=Integer.parseInt(data.get(3));
+     int p=Integer.parseInt(priority);
+     hour=date.substring(date.indexOf("T")+1, date.length());
+     dateString=date.substring(0, date.indexOf("T"));
 
-            }
-            if (p==0){
-                rbaltanuevoevento.setChecked(true);
-            }else if (p==1){
-                rbmedianuevoevento.setChecked(true);
-            }else if (p==2){
-                rbbajanuevoevento.setChecked(true);
-            }
+     RadioCheck(p);
 
-            etnotes.setText(notes);
-            ethora.setText(hour);
-            etfecha.setText(dateString);
-            ettitle.setText(titlee);
+     etnotes.setText(notes);
+     ethora.setText(hour);
+     etfecha.setText(dateString);
+     ettitle.setText(titlee);
+
+ }else {
+     BackValues(backvalues);
+ }
 
         }
         btndelete.setText(deleteTitle);
@@ -175,18 +195,33 @@ private Utilities u;
         btncancelarnuevoevento.setText(btnCancelReturn);
     }
 
+    private void RadioCheck(int p) {
+
+        if (p==0){
+            rbaltanuevoevento.setChecked(true);
+        }else if (p==1){
+            rbmedianuevoevento.setChecked(true);
+        }else if (p==2){
+            rbbajanuevoevento.setChecked(true);
+        }
+    }
+
+
+    private void BackValues(ArrayList<String> s) {
+
+
+        int p=Integer.parseInt(s.get(6));
+        ettitle.setText(s.get(4));
+        etfecha.setText(s.get(2));
+        ethora.setText(s.get(7));
+        etnotes.setText(s.get(5));
+
+        RadioCheck(p);
+    }
+
 
     public void onClick(View v){
 
-        tbe.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    Toast.makeText(getApplicationContext(), "on", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "off", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
         final Calendar c= Calendar.getInstance();
      //   c.add(Calendar.DATE, -1);
         if (v==btndelete){
@@ -218,6 +253,9 @@ private Utilities u;
 
             dialog.show();
         }
+        if (v==btnaddnew){
+
+        }
         if (v==etfecha){
             pop.start();
             day=c.get(Calendar.DAY_OF_MONTH);
@@ -227,7 +265,8 @@ private Utilities u;
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                     int m2= month+1;
-                    String date= year+"-"+m2+"-"+day;
+                    String date= year+"-"+m2+"-"+dayOfMonth;
+                    Log.d("diia", day+"");
                     etfecha.setText(date);
                 }
             }, year, month, day);
@@ -255,7 +294,70 @@ private Utilities u;
             borrar.start();
             u.ClearTask(getApplicationContext());
         }
+        if(v==btnselecttype){
 
+            SelectingType();
+
+
+        }
+
+
+    }
+
+    private void SelectingType() {
+
+        ArrayList<String> values=new ArrayList<>();
+        String title, date, time, notes, prioritys, mat;
+        if (ettitle.getText().toString().length()>0){
+            title=ettitle.getText().toString();
+        }else{
+            title=null;
+        }
+        if (etfecha.getText().toString().length()>0){
+            date=etfecha.getText().toString();
+        }else{
+            date=null;
+        }
+        if (ethora.getText().toString().length()>0){
+            time=ethora.getText().toString();
+        }else{
+            time=null;
+        }
+        if (etnotes.getText().toString().length()>0){
+            notes=etnotes.getText().toString();
+        }else{
+            notes=null;
+        }
+        int p= GetPriority();
+        prioritys=String.valueOf(p);
+        mat=spinnuevoevento.getSelectedItem().toString();
+        if (data!=null){
+            values.add(String.valueOf(data.get(0)));
+            values.add(String.valueOf(data.get(1)));
+            values.add(date);//2
+            values.add("");//3
+            values.add(title);//5
+            values.add(notes);//6
+            values.add(prioritys);//4
+            values.add(time);//7
+        }else{
+            values.add("");
+            values.add("");
+            values.add(date);//2
+            values.add("");//3
+            values.add(title);//5
+            values.add(notes);//6
+            values.add(prioritys);//4
+            values.add(time);//7
+        }
+
+
+
+        Enabled(false);
+
+        Intent i= new Intent(getApplicationContext(), Checks.class);
+        i.putStringArrayListExtra("dataaddevent", values);
+        startActivity(i);
     }
 
     public void onBackPressed( ){
@@ -265,30 +367,19 @@ private Utilities u;
     private void GetValues(){
 
 
-
-
         String value=btncancelarnuevoevento.getText().toString();
-        String notes, title, date, type, subjet, sid, day, time;
+        String notes, title, date, type, subjet, sid, day, time, typeOfs;
         int  idSubjet, active, priority, typeOf;
+        typeOfs=btnaddnew.getText().toString();
+        GetType(typeOfs);
+
 
         if (ettitle.getText().toString().length()>0&&etfecha.getText().toString().length()>0){
             Event e=new Event();
             notes=etnotes.getText().toString();
             title=ettitle.getText().toString();
-            type=tbe.getText().toString();
-            if (type.equals("T. Prácticos")){
-                typeOf=1;
-            }else {
-                typeOf=0;
-            }
-            int radio=rgeventonuevo.getCheckedRadioButtonId();
-            if (radio==rbaltanuevoevento.getId()){
-                priority=0;
-            }else if (radio==rbmedianuevoevento.getId()){
-                priority=1;
-            }else{
-                priority=2;
-            }
+
+            priority= GetPriority();
             subjet=spinnuevoevento.getSelectedItem().toString();
             if (!subjet.equals("Seleccionar")){
                 GetSubjets(subjet, 0);
@@ -297,50 +388,61 @@ private Utilities u;
                 return;
             }
             sid=tvidsub.getText().toString();
-//            if (sid.equals("0")){
-//                Toast.makeText(getApplicationContext(), "Seleccionar materia para continuar", Toast.LENGTH_LONG).show();
-//                return;
-//            }else {
+            System.out.println("ids "+sid);
+
                idSubjet=Integer.parseInt(sid);
 
-
-//            }
             active=0;
             day=etfecha.getText().toString();
             time=ethora.getText().toString();
 
             date=day+"T"+time+":00";
-
-            Date d=Date(date);
-            Calendar calendar = Calendar.getInstance();
-
+System.out.println();
+String b=tvidtype.getText().toString();
+            int r=rts[0];
+            e.setTypeId(r);
             e.setTitle(title);
             e.setNotes(notes);
             e.setActive(active);
-            e.setTypeOf(typeOf);
             e.setPriority(priority);
             e.setIdUser(idU);
             e.setDate(date);
             e.setIdSubjet(idSubjet);
 
+
             if (value.equals("Cancelar")){
                 try {
-                    Add(e);
+
+
+
+               Add(e);
                 }catch (Exception ex){
                     ex.getMessage();
                 }
 
             }else if (value.equals("Volver")) {
               e.setId(Integer.parseInt(data.get(0)));
-                Edit(e);
+               Edit(e);
             }
         }else{
         Toast.makeText(getApplicationContext(), "Faltan campos por completar", Toast.LENGTH_LONG).show();
     }
  }
 
+    private int GetPriority() {
+        int priority;
+        int radio=rgeventonuevo.getCheckedRadioButtonId();
+        if (radio==rbaltanuevoevento.getId()){
+            priority=0;
+        }else if (radio==rbmedianuevoevento.getId()){
+            priority=1;
+        }else{
+            priority=2;
+        }
+        return priority;
+    }
+
     private void Enabled(boolean b){
-        tbe.setEnabled(b);
         rgeventonuevo.setEnabled(b);
         spinnuevoevento.setEnabled(b);
         etnotes.setEnabled(b);
@@ -387,6 +489,32 @@ private Utilities u;
         AlertDialog title= dialog.create();
         title.setTitle("Confirmar acción");
         title.show();
+    }
+
+    public void GetType(String type){
+
+        Call<ArrayList<TypeOf>> call=ServiceBA.getInstance().createService(ISType.class).GetAllFilters(idU, type);
+        call.enqueue(new Callback<ArrayList<TypeOf>>() {
+            @Override
+            public void onResponse(Call<ArrayList<TypeOf>> call, Response<ArrayList<TypeOf>> response) {
+                if (response.code()==200){
+                    ArrayList<TypeOf>al=new ArrayList<>();
+                    al.addAll(response.body());
+                    int m=al.get(0).getId();
+                    y=m;
+                    rts[0]=m;
+                    String h=String.valueOf(m);
+                    tvidtype.setText(h);
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<TypeOf>> call, Throwable t) {
+
+            }
+        });
     }
 
     public void Add(Event e){
@@ -470,14 +598,14 @@ private Utilities u;
     private void GetSubjets(String name, int idSub){
 
         sublist=new ArrayList<>();
-        Call<ArrayList<Subjet>> call = ServiceBA.getInstance().createService(ISSubjet.class).GetAll(idU, null, 0);
+        Call<ArrayList<Subjet>> call = ServiceBA.getInstance().createService(ISSubjet.class).GetAll(a, idU, null, 0);
 
         if (name!=null){
-            call = ServiceBA.getInstance().createService(ISSubjet.class).GetAll(idU, name, 0);
+            call = ServiceBA.getInstance().createService(ISSubjet.class).GetAll(a, idU, name, 0);
         }else if(idSub!=0){
-            call = ServiceBA.getInstance().createService(ISSubjet.class).GetById(idSub);
+            call = ServiceBA.getInstance().createService(ISSubjet.class).GetById(a, idSub);
         }else{
-            call = ServiceBA.getInstance().createService(ISSubjet.class).GetAll(idU, null, 0);
+            call = ServiceBA.getInstance().createService(ISSubjet.class).GetAll(a, idU, null, 0);
         }
         call.enqueue(new Callback<ArrayList<Subjet>>() {
             @Override
@@ -492,7 +620,8 @@ private Utilities u;
                     }
                     if (name==null){//cargar todas
 
-                        for (int i=0; i<sublist.size(); i++){
+                        for (int i=0; i<sublist.size() ; i++){
+
                             listSpin[i]=sublist.get(i).getName();
                         }
                         SpinnerList(listSpin);
@@ -528,6 +657,8 @@ private Utilities u;
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 GetSubjets(spinnuevoevento.getSelectedItem().toString(), 0);
+
+
 
             }
 

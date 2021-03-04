@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import com.ale.gttt.Interfaces.ISEvent;
 import com.ale.gttt.Interfaces.ISSubjet;
 import com.ale.gttt.Interfaces.ISTeacher;
+import com.ale.gttt.Interfaces.ISType;
 import com.ale.gttt.Interfaces.ISUser;
 import com.ale.gttt.Main2Activity;
 import com.ale.gttt.R;
@@ -36,7 +37,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private int idUser;
-    private String mParam1;
+    private String mParam1, a;
     private String mParam;
 
     private OnFragmentInteractionListener mListener;
@@ -86,6 +87,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         btnaceptar=v.findViewById(R.id.btneditarperfil);
         btncancelar=v.findViewById(R.id.btncancelarperfil);
         btneliminar=v.findViewById(R.id.btndelete);
+        a= SharedPreferenceManager.getInstance(getContext()).GetToken();
         idUser=SharedPreferenceManager.getInstance(getContext()).GetUser().getId();
 
 
@@ -140,7 +142,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private void Delete() {
 
 
-       Call<Void> call= ServiceBA.getInstance().createService(ISUser.class).Delete(idUser);
+       Call<Void> call= ServiceBA.getInstance().createService(ISUser.class).Delete(a, idUser);
        call.enqueue(new Callback<Void>() {
            @Override
            public void onResponse(Call<Void> call, Response<Void> response) {
@@ -175,12 +177,11 @@ Toast.makeText(getContext(), "error: "+ t.getMessage(), Toast.LENGTH_SHORT).show
         etnickperfil.setEnabled(i);
     }
 
-
     private void Update(User u) {
 if (u!=null){
 
 
-            Call<User> call= ServiceBA.getInstance().createService(ISUser.class).Update(idUser, u);
+            Call<User> call= ServiceBA.getInstance().createService(ISUser.class).Update(a, idUser, u);
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
@@ -258,6 +259,7 @@ if (u!=null){
         }
 
     }
+
     public void Alert(){
      AlertDialog.Builder dialog= new AlertDialog.Builder(getContext());
         dialog.setMessage("¿Eliminar?").setCancelable(true)
@@ -267,6 +269,7 @@ if (u!=null){
                         DeleteEvents();
                         DeleteTeachers();
                         DeleteSubjets();
+                        DeleteAllTypes();
                         Delete();
 
 
@@ -282,6 +285,7 @@ if (u!=null){
         title.show();
 
     }
+
     private void Main(){
         Toast.makeText(getContext(), "Hecho!", Toast.LENGTH_LONG).show();
         Intent i= new Intent(new Intent(getContext(), Main2Activity.class));
@@ -289,8 +293,9 @@ if (u!=null){
         startActivity(i);
         SharedPreferenceManager.getInstance(getContext()).LogOut();
     }
+
     private void DeleteSubjets(){
-        Call<Void> call= ServiceBA.getInstance().createService(ISSubjet.class).DeleteAll(idUser);
+        Call<Void> call= ServiceBA.getInstance().createService(ISSubjet.class).DeleteAll(a, idUser);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -312,6 +317,7 @@ if (u!=null){
             }
         });
     }
+
     private void DeleteEvents(){
         Call<Void> call= ServiceBA.getInstance().createService(ISEvent.class).DeleteAll(idUser);
         call.enqueue(new Callback<Void>() {
@@ -336,6 +342,7 @@ if (u!=null){
             }
         });
     }
+
     private void DeleteTeachers(){
         Call<Void> call= ServiceBA.getInstance().createService(ISTeacher.class).DeleteAll(idUser);
         Log.d("teacher:", " "+idUser);
@@ -361,8 +368,20 @@ if (u!=null){
         });
     }
 
+    private void DeleteAllTypes(){
+        Call<Void> call= ServiceBA.getInstance().createService(ISType.class).DeleteAll(idUser);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
 
+            }
 
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
+    }
 
 
 

@@ -23,11 +23,13 @@ import androidx.fragment.app.Fragment;
 import com.ale.gttt.AddEventActivity;
 import com.ale.gttt.Interfaces.ISEvent;
 import com.ale.gttt.Interfaces.ISSubjet;
+import com.ale.gttt.Interfaces.ISType;
 import com.ale.gttt.R;
 import com.ale.gttt.Session.SharedPreferenceManager;
 import com.ale.gttt.Tools.EventsAdapter;
 import com.ale.gttt.entities.Event;
 import com.ale.gttt.entities.Subjet;
+import com.ale.gttt.entities.TypeOf;
 import com.ale.gttt.io.ServiceBA;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -46,15 +48,16 @@ public class EventFragment extends Fragment {
     private int idUser;
     private MediaPlayer mp;
     private String mParam1;
-    private String mParam2;
+    private String mParam2, a;
     private EventsAdapter adapter;
     private ListView listView;
     private ArrayList<Event> listEvent;
     private ArrayList<Subjet> sublist;
+    private ArrayList<TypeOf> typel;
     private ToggleButton tb;
     private Button rh, rl, rm, rall;
     private FloatingActionButton fab;
-    private Spinner spin;
+    private Spinner spin, spintype;
     private OnFragmentInteractionListener mListener;
 
     @Override
@@ -65,7 +68,7 @@ public class EventFragment extends Fragment {
                 mp=MediaPlayer.create(getContext(), R.raw.add);
 
                  Init(view);
-                 GetAll(3, null, 0, null, 2);
+                 GetAll(3, null, 0, null, 2, 0);
         return view;
 
     }
@@ -73,16 +76,118 @@ public class EventFragment extends Fragment {
     private void Init(View v) {
         idUser= SharedPreferenceManager.getInstance(getContext()).GetUser().getId();
         listView=v.findViewById(R.id.lvevent);
-        tb=v.findViewById(R.id.toggleButton);
+
+        typel=new ArrayList<>();
         rh=v.findViewById(R.id.btnhigh);
         rm=v.findViewById(R.id.btnmedium);
         rl=v.findViewById(R.id.btnlow);
+        spintype=v.findViewById(R.id.spintype);
+
         rall=v.findViewById(R.id.btnallp);
         spin=v.findViewById(R.id.spinner2);
+        a= SharedPreferenceManager.getInstance(getContext()).GetToken();
 
         Config();
 
     }
+
+    private void GetTypes(){
+
+        Call<ArrayList<TypeOf>> call= ServiceBA.getInstance().createService(ISType.class).GetAll(idUser);
+        call.enqueue(new Callback<ArrayList<TypeOf>>() {
+            @Override
+            public void onResponse(Call<ArrayList<TypeOf>> call, Response<ArrayList<TypeOf>> response) {
+                if (response.code()==200){
+                    if (response.body().size()>0){
+                        typel.addAll(response.body());
+                        Spinn2(typel);
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<TypeOf>> call, Throwable t) {
+
+            }
+        });
+
+
+    }
+
+
+    private void Spinn2(ArrayList<TypeOf> typel) {
+        ArrayList<String> array= new ArrayList<>();
+        array.add("Seleccionar");
+        for (int i=0; i<typel.size(); i++){
+
+            array.add(typel.get(i).getDescription());
+        }
+        ArrayAdapter<String> adapter= new ArrayAdapter<String>(getContext(), R.layout.spinner_item, array);
+        spintype.setAdapter(adapter);
+        spintype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (spintype.getSelectedItemPosition()!=0){
+                    GetAllT( spintype.getSelectedItem().toString());
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void GetAllT(String toString) {
+        Call<ArrayList<TypeOf>> call= ServiceBA.getInstance().createService(ISType.class).GetAllFilters(idUser, toString);
+        call.enqueue(new Callback<ArrayList<TypeOf>>() {
+            @Override
+            public void onResponse(Call<ArrayList<TypeOf>> call, Response<ArrayList<TypeOf>> response) {
+                if (response.code()==200){
+
+                    if (response.body().size()>0){
+                        GetAll(0, null, 0,sublist,0, response.body().get(0).getId());
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<TypeOf>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void GetAllTypes(String toString) {
+
+
+            Call<ArrayList<TypeOf>> call= ServiceBA.getInstance().createService(ISType.class).GetAll(idUser);
+            call.enqueue(new Callback<ArrayList<TypeOf>>() {
+                @Override
+                public void onResponse(Call<ArrayList<TypeOf>> call, Response<ArrayList<TypeOf>> response) {
+                    if (response.code()==200){
+                        if (response.body().size()>0){
+                            GetAll(0, null, 0,sublist,0, response.body().get(0).getId());
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ArrayList<TypeOf>> call, Throwable t) {
+
+                }
+            });
+
+
+
+
+    }
+
 
     private void Config() {
         fab.setOnClickListener(new View.OnClickListener() {
@@ -98,42 +203,43 @@ public class EventFragment extends Fragment {
        rall.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               GetAll(3, null, 0, null, 2);
+
+              GetAll(3, null, 0, null, 2,0);
            }
        });
        rh.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               GetAll(0, null, 0, null, 2);
+               GetAll(0, null, 0, null, 2,0);
            }
        });
        rm.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               GetAll(1, null, 0, null, 2);
+               GetAll(1, null, 0, null, 2,0);
            }
        });
        rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GetAll(2, null, 0, null, 2);
+                GetAll(2, null, 0, null, 2,0);
             }
         });
 
-       tb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-           @Override
-           public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-               if (isChecked){
-                   GetAll(3, null, 0, null, 1);
-
-
-               }else {
-                   GetAll(3, null, 0, null, 0);
-
-
-               }
-           }
-       });
+//       tb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//           @Override
+//           public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//               if (isChecked){
+//                   GetAll(3, null, 0, null, 1);
+//
+//
+//               }else {
+//                   GetAll(3, null, 0, null, 0);
+//
+//
+//               }
+//           }
+//       });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             ArrayList<String> data = new ArrayList<>();
@@ -143,25 +249,26 @@ public class EventFragment extends Fragment {
                     String title, date, typeof, ide, idsub, priority, notes;
                     date = listEvent.get(position).getDate();
                     title= listEvent.get(position).getTitle();
-                    typeof=String.valueOf(listEvent.get(position).getTypeOf());
+                    typeof=String.valueOf(listEvent.get(position).getTypeId());
                     ide=String.valueOf(listEvent.get(position).getId());
                     notes= listEvent.get(position).getNotes();
                     idsub=String.valueOf(listEvent.get(position).getIdSubjet());
                     priority=String.valueOf(listEvent.get(position).getPriority());
-
-                data.add(ide);
+                 data.add(ide);
                 data.add(idsub);
-                data.add(title);
-                data.add(typeof);
                 data.add(date);
-                data.add(priority);
+                data.add(typeof);
+                data.add(title);
                 data.add(notes);
+                data.add(priority);
+
 
                 Intent i = new Intent(getContext(), AddEventActivity.class);
-                i.putStringArrayListExtra("arrayE", data);
+                 i.putStringArrayListExtra("arrayE", data);
                 startActivity(i);
             }
         });
+        GetTypes();
 
     }
 
@@ -175,7 +282,7 @@ public class EventFragment extends Fragment {
 
     }
 
-    private void GetAll(int n, String s, int i, ArrayList<Subjet> lists, int type){
+    private void GetAll(int n, String s, int i, ArrayList<Subjet> lists, int type, int t){
 
         listEvent=new ArrayList<>();
         Call<ArrayList<Event>> call;
@@ -186,7 +293,9 @@ public class EventFragment extends Fragment {
             call= ServiceBA.getInstance().createService(ISEvent.class).GetAll(idUser);
         }else if (type<2){
             call= ServiceBA.getInstance().createService(ISEvent.class).GetTypeOf(idUser, type);
-        }else {
+        }else if (t!=0&&n==0){
+            call= ServiceBA.getInstance().createService(ISEvent.class).GetTypeOf(idUser, t);}
+           else {
             call= ServiceBA.getInstance().createService(ISEvent.class).GetAllParam(idUser, n);
         }
 
@@ -218,13 +327,13 @@ public class EventFragment extends Fragment {
             sublist = new ArrayList<>();
             int id = SharedPreferenceManager.getInstance(getContext()).GetUser().getId();
 
-            Call<ArrayList<Subjet>> call= ServiceBA.getInstance().createService(ISSubjet.class).GetAll(id, null, 0);
+            Call<ArrayList<Subjet>> call= ServiceBA.getInstance().createService(ISSubjet.class).GetAll(a, id, null, 0);
             if (s == null&&val==0) {
-            call = ServiceBA.getInstance().createService(ISSubjet.class).GetAll(id, null, 0);
+            call = ServiceBA.getInstance().createService(ISSubjet.class).GetAll(a, id, null, 0);
             }else if (list==null&& val!=0&&s!=null){
-            call = ServiceBA.getInstance().createService(ISSubjet.class).GetById(val);
+            call = ServiceBA.getInstance().createService(ISSubjet.class).GetById(a, val);
         }else if (s!=null&&val==0&&list==null){
-                call = ServiceBA.getInstance().createService(ISSubjet.class).GetAll(id, s, 0);
+                call = ServiceBA.getInstance().createService(ISSubjet.class).GetAll(a, id, s, 0);
             }
 
             call.enqueue(new Callback<ArrayList<Subjet>>() {
@@ -242,7 +351,7 @@ public class EventFragment extends Fragment {
                                 Toast.makeText(getContext(), "No se accedio a las materias: error "+e.getMessage(), Toast.LENGTH_LONG).show();
                             }
                         }else if(s!=null&&val==0&&list==null){
-                            GetAll(3, null, sublist.get(0).getId(), sublist, 2);
+                            GetAll(3, null, sublist.get(0).getId(), sublist, 2, 0);
                         }
 
                     } else if (response.code() == 404) {
@@ -272,7 +381,7 @@ public class EventFragment extends Fragment {
         ArrayList<String> array= new ArrayList<>();
         array.add("Seleccionar");
         for (int i=0; i<sublist.size(); i++){
-            int n=i+1;
+
             array.add(sublist.get(i).getName());
         }
         ArrayAdapter<String> adapter= new ArrayAdapter<String>(getContext(), R.layout.spinner_item, array);

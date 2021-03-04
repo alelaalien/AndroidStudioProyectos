@@ -57,14 +57,16 @@
                             android:layout_marginTop="30dp"
 
                             android:layout_marginEnd="20dp"
+                            android:background="@drawable/input"
                             android:ems="10"
                             android:fontFamily="@font/habibi"
                             android:hint="@string/nombrep"
                             android:importantForAutofill="no"
                             android:inputType="textPersonName"
                             android:textAlignment="center"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="24sp" />
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
 
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -81,7 +83,7 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginTop="24dp"
                                 android:layout_marginEnd="20dp"
-                                android:background="@color/colorDark"
+                                android:background="@color/colorPrimahghgryDark2"
                                 android:entries="@array/week"
                                 android:fontFamily="@font/habibi"
                                 android:scrollbarStyle="insideOverlay"
@@ -111,7 +113,7 @@
                             <ListView
                                 android:id="@+id/listdias"
                                 android:layout_width="0dp"
-                                android:layout_height="180dp"
+                                android:layout_height="140dp"
                                 android:layout_marginTop="16dp"
                                 android:layout_marginBottom="16dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -142,10 +144,13 @@
                                 android:layout_marginStart="16dp"
 
                                 android:layout_marginEnd="20dp"
+                                android:background="@drawable/input"
                                 android:ems="10"
                                 android:fontFamily="@font/habibi"
                                 android:inputType="textPersonName"
-                                android:textColor="@color/colorWhite"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textStyle="bold"
                                 app:layout_constraintBottom_toBottomOf="@+id/btnendtime"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="1.0"
@@ -170,10 +175,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
                                 android:layout_marginEnd="20dp"
+                                android:background="@drawable/input"
                                 android:ems="10"
                                 android:fontFamily="@font/habibi"
                                 android:inputType="textPersonName"
-                                android:textColor="@color/colorWhite"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
                                 app:layout_constraintBottom_toBottomOf="@+id/btnstarttime"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0.887"

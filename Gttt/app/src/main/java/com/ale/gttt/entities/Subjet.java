@@ -1,8 +1,11 @@
 package com.ale.gttt.entities;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Subjet {
+public class Subjet implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -63,5 +66,13 @@ public class Subjet {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+    }
 }

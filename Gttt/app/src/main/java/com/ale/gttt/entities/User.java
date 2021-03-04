@@ -14,23 +14,29 @@ public class User  {
     @SerializedName("email")
     @Expose
     private String email;
+    @SerializedName("token")
+    @Expose
+    private String token;
 
-    public int getIdSecurity() {
-        return idSecurity;
+    public User(int id, String nick, String email, String token, String password) {
+        this.id = id;
+        this.nick = nick;
+        this.email = email;
+        this.token = token;
+        this.password = password;
     }
 
-    public void setIdSecurity(int idSecurity) {
-        this.idSecurity = idSecurity;
-    }
+
 
     @SerializedName("password")
     @Expose
     private String password;
-    @SerializedName("idSecurity")
-    @Expose
-    private int idSecurity;
+
     public List<User> list;
 
+    public User(String token) {
+        this.token = token;
+    }
 
     public User() {
     }
@@ -58,7 +64,13 @@ public class User  {
         this.nick = nick;
     }
 
+    public String getToken() {
+        return token;
+    }
 
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public String getEmail() {
         return email;

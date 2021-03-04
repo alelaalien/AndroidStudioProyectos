@@ -66,11 +66,11 @@ public class EventsAdapter extends BaseAdapter implements View.OnClickListener  
             tvcolor.setBackgroundColor(Color.parseColor("#C48BE91F"));
         }
 
-        if (list.get(position).getTypeOf()==0){
-            typeof="Exámen";
-        }else{
-            typeof="Trabajo Práctico";
-        }
+//        if (list.get(position).getTypeId()==0){
+//            typeof="Exámen";
+//        }else{
+//            typeof="Trabajo Práctico";
+//        }
         for (int i=0;i<sublist.size();i++){
             if (list.get(position).getIdSubjet()==sublist.get(i).getId()){
                sub=sublist.get(i).getName();
@@ -78,11 +78,11 @@ public class EventsAdapter extends BaseAdapter implements View.OnClickListener  
         }
 
 
-         second= typeof+" de "+sub;
+        // second= typeof+" de "+sub;
 
 
        tvtypeof.setText(title);
-        tvtitle.setText(second);
+      //  tvtitle.setText(second);
         tvhour.setText(hour);
         tvdate.setText(date);
 
@@ -111,7 +111,7 @@ public class EventsAdapter extends BaseAdapter implements View.OnClickListener  
         return position;
     }
 
-    public void setOnClickListenet(View.OnClickListener listener){
+    public void setOnClickListener(View.OnClickListener listener){
         this.listener=listener;
     }
 

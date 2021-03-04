@@ -20,10 +20,13 @@ public class SubjetsAdapter extends BaseAdapter implements View.OnClickListener 
     private Context context;
     private ArrayList<Subjet> list;
     private View.OnClickListener listener;
+    private int l;
 
-    public SubjetsAdapter(Context context, ArrayList<Subjet> list) {
+    public SubjetsAdapter(Context context, ArrayList<Subjet> list, int l ) {
         this.context = context;
         this.list = list;
+        this.l=l;
+
     }
 
     @Override
@@ -44,29 +47,44 @@ public class SubjetsAdapter extends BaseAdapter implements View.OnClickListener 
     @SuppressLint("ResourceAsColor")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView==null){
-            LayoutInflater inflater=(LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-            convertView= inflater.inflate(R.layout.subjets_list_items, null);
+        if (l==0){
+            if (convertView==null){
+                LayoutInflater inflater=(LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+                convertView= inflater.inflate(R.layout.subjets_list_items, null);
+            }
+            TextView name, hour, id;
+            name= convertView.findViewById(R.id.tv_sub_name_item);
+            hour= convertView.findViewById(R.id.tv_h_item);
+            id= convertView.findViewById(R.id.tv_id_item);
+
+
+            String sname, sid, shour;
+            sname= list.get(position).getName();
+            sid= String.valueOf(list.get(position).getId());
+            shour= list.get(position).getClass_();
+            name.setText(sname);
+            hour.setText(shour);
+            id.setText(sid);
+
+
+            if  (position % 2 == 0){
+                name.setTextColor(BLACK);
+                name.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            }
+        }else  {
+            if (convertView==null){
+                LayoutInflater inflater=(LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+                convertView= inflater.inflate(R.layout.simple_subjet_item, null);
+            }
+            TextView name, hour, id;
+            name= convertView.findViewById(R.id.tv_simple_subjet_item);
+            String sname, sid ;
+            sname= list.get(position).getName();
+
+            name.setText(sname);
+
         }
-        TextView name, hour, id;
-        name= convertView.findViewById(R.id.tv_sub_name_item);
-        hour= convertView.findViewById(R.id.tv_h_item);
-        id= convertView.findViewById(R.id.tv_id_item);
 
-
-        String sname, sid, shour;
-        sname= list.get(position).getName();
-        sid= String.valueOf(list.get(position).getId());
-        shour= list.get(position).getClass_();
-        name.setText(sname);
-        hour.setText(shour);
-        id.setText(sid);
-
-
-        if  (position % 2 == 0){
-            name.setTextColor(BLACK);
-            name.setBackgroundColor(Color.parseColor("#FFFFFF"));
-   }
 
         return convertView;
     }

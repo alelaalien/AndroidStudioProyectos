@@ -2,19 +2,23 @@ package com.ale.gttt.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -24,11 +28,15 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.ale.gttt.AddTeacherActivity;
+import com.ale.gttt.Interfaces.ISDictates;
 import com.ale.gttt.Interfaces.ISSubjet;
 import com.ale.gttt.Interfaces.ISTeacher;
 import com.ale.gttt.R;
 import com.ale.gttt.Session.SharedPreferenceManager;
+import com.ale.gttt.Tools.SubjetsAdapter;
 import com.ale.gttt.Tools.TeachersAdapter;
+import com.ale.gttt.entities.AuxiliarSch;
+import com.ale.gttt.entities.Dictates;
 import com.ale.gttt.entities.Subjet;
 import com.ale.gttt.entities.Teacher;
 import com.ale.gttt.io.ServiceBA;
@@ -46,18 +54,25 @@ public class TeacherFragment extends Fragment  implements View.OnClickListener{
 
     private EditText etserchname;
     private TeachersAdapter adapter;
+    private SubjetsAdapter sad;
     private ArrayList<Teacher> viewAll;
     private ArrayList<String> sublistString;
     private ArrayList<Subjet> sublist;
+    private ArrayList<Subjet> finala;
+    private ArrayList<Subjet> sublistdic;
     private ArrayList<Integer> ids;
+    private ArrayList<Dictates> dic;
+    private ArrayList<Object> dat;
+    private ListView lvsub;
     private ListView listView;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private String mParam1;
+    private String mParam1, a;
     private String mParam2;
     private MediaPlayer mp;
-    private Button btnname, btnnick, btnsurnam, btnsubjet,btnviewall;
+    private Button btnname, btnnick, btnsurnam, btnsubjet,btnviewall, btnmore;
     private int idUser;
+    private ArrayList<String> data;
     private OnFragmentInteractionListener mListener;
     private  FloatingActionButton fab;
 
@@ -82,14 +97,21 @@ public class TeacherFragment extends Fragment  implements View.OnClickListener{
     private void Init(View view) {
         btnname=view.findViewById(R.id.btnname);
         btnnick=view.findViewById(R.id.btnnick);
-        btnsubjet=view.findViewById(R.id.btnsubjet);
         btnsurnam=view.findViewById(R.id.btnsurname);
+
+        sublistdic=new ArrayList<>();
+        lvsub=view.findViewById(R.id.lvss);
+        btnmore=view.findViewById(R.id.btnvermas);
         btnviewall=view.findViewById(R.id.btnviewall);
          idUser= SharedPreferenceManager.getInstance(getContext()).GetUser().getId();
         etserchname=view.findViewById(R.id.etbuscardocentename);
+        etserchname.setSelectAllOnFocus(true);
         listView=view.findViewById(R.id.lvteachers);
         mp = MediaPlayer.create(getContext(), R.raw.add);
         sublistString=new ArrayList<String>();
+        ListAdapter las=new SubjetsAdapter(getContext(), sublistdic, 2);
+        lvsub.setAdapter(las);
+        a= SharedPreferenceManager.getInstance(getContext()).GetToken();
     }
 
     private void Config(View view) {
@@ -103,12 +125,20 @@ public class TeacherFragment extends Fragment  implements View.OnClickListener{
                 mp.start();
             }
         });
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ArrayList<String> data = new ArrayList<>();
+                GetDictates(viewAll.get(position).getId());
+                btnmore.setVisibility(View.VISIBLE);
+
+                  data = new ArrayList<>();
                 String name, idt, cel, email, sub, surname, nick;
 
+                for (int i = 0; i < listView.getChildCount(); i++) {
+                    if(position == i ){
+                        listView.getChildAt(i).setBackgroundColor(Color.BLUE);
+                    }else{ listView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT); } }
                 name = viewAll.get(position).getName();
                 idt = String.valueOf(viewAll.get(position).getId());
                 cel= String.valueOf(viewAll.get(position).getCelphone());
@@ -123,17 +153,155 @@ public class TeacherFragment extends Fragment  implements View.OnClickListener{
                 data.add(sub);//4
                 data.add(cel);//5
                 data.add(email);//6
-                Intent i = new Intent(getContext(), AddTeacherActivity.class);
-                i.putStringArrayListExtra("datat", data);
-                startActivity(i);
+                System.out.println(data.get(6));
+
+dat=new ArrayList<>();
+dat.add(parent);
+dat.add(view);
+dat.add(position);
+dat.add(id);
+dat.add(data);
             }
         });
         btnviewall.setOnClickListener(this);
         btnsurnam.setOnClickListener(this);
-        btnsubjet.setOnClickListener(this);
         btnnick.setOnClickListener(this);
         btnname.setOnClickListener(this);
+        btnmore.setOnClickListener(this);
     }
+
+    private void Try(AdapterView<?> parent, View view, int position, long id) {
+getArray();
+    }
+
+    private void   getArray() {
+        ArrayList<String> dati= data;
+
+        finala = new ArrayList<>();
+  ListAdapter ad=  lvsub.getAdapter();
+  try {
+      int  i=ad.getCount();
+      ArrayList<Object> ar= new ArrayList<>();
+
+      for(int d=0; d<i;d++){
+          ar.add(ad.getItem(d));
+      }
+      for(int f=0; f<ar.size();f++){
+          Subjet au=(Subjet) ar.get(f);
+          finala.add(au);
+      }
+  }catch (Exception e){
+      System.out.println(e.getMessage());
+  }String m; ArrayList<String> array= new ArrayList<>();
+String[] ids=new String[finala.size()] ;
+  String co="[";array.add(co);
+        for(int f=0; f<finala.size();f++){
+ids[f]=String.valueOf( finala.get(f).getName());
+              int size=finala.size();
+              int less=size-1;
+if(f!=less){
+    m="{\"id\":"+finala.get(f).getId()+"\", \"name\":\""+finala.get(f).getName()+"\",\"class\":\""+finala.getClass()+"\", \"active\": "+finala.get(f).getActive()+", \"idUser\":"+finala.get(f).getIdUser()+"}," ;
+
+}else{
+    m="{\"id\":"+finala.get(f).getId()+"\", \"name\":\""+finala.get(f).getName()+"\",\"class\":\""+finala.getClass()+"\", \"active\": "+finala.get(f).getActive()+", \"idUser\":"+finala.get(f).getIdUser()+"}" ;
+
+}
+            array.add(m);
+    } String fi="]";
+        array.add(fi);
+
+        for (int f=0; f<array.size();f++){
+            System.out.println(array.get(f));
+        }
+        Intent i = new Intent(getContext(), AddTeacherActivity.class);
+                i.putStringArrayListExtra("datat", dati);
+                i.putExtra("try", ids);
+                startActivity(i);
+}
+
+    private void GetDictates(int id){
+dic=new ArrayList<>();
+
+        Call<ArrayList<Dictates>> call=ServiceBA.getInstance().createService(ISDictates.class).GetAllByTeacher(id);
+        call.enqueue(new Callback<ArrayList<Dictates>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Dictates>> call, Response<ArrayList<Dictates>> response) {
+                if (response.code()==200){
+                    if (response.body().size()>0) {
+                        dic.addAll(response.body());
+                        for (Dictates d: dic){
+                           getSubs(d.getSubjetId());
+                        }
+
+                    }else
+                    {
+                        getSubs(0);
+                    }
+
+                }else if (response.code()==404){
+                    Toast.makeText(getContext(), "Recurso no encontrado", Toast.LENGTH_LONG).show();
+                }else if (response.code()==500){
+                    Toast.makeText(getContext(), "Error del servidor. Reintenar", Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Dictates>> call, Throwable t) {
+                Toast.makeText(getContext(), "Error "+t.getMessage(), Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+    }
+
+    private void getSubs(int subjetId) {
+
+        if (subjetId!=0){
+            sublistdic=new ArrayList<>();
+            Call<ArrayList<Subjet>> call = ServiceBA.getInstance().createService(ISSubjet.class).GetById(a, subjetId);
+
+            call.enqueue(new Callback<ArrayList<Subjet>>() {
+                @Override
+                public void onResponse(Call<ArrayList<Subjet>> call, Response<ArrayList<Subjet>> response) {
+
+                    if (response.code() == 200) {
+                        if (response.body().size() > 0) {
+                            Subjet  e ;
+                            e  =response.body().get(0);
+                            sublistdic.add(e);
+                            sad= new SubjetsAdapter(getContext(), sublistdic, 2);
+                            lvsub.setAdapter(sad);
+
+                        }
+                        if (lvsub.getAdapter()!=null){
+                            System.out.println("no es null");
+                        }
+
+                    } else if (response.code() == 404) {
+                        Toast.makeText(getContext(), "Recursos no encontrados", Toast.LENGTH_SHORT).show();
+                        Log.d("teacher materias", "Recursos no encontrados");
+
+                    } else if (response.code() == 500) {
+                        Toast.makeText(getContext(), "Hubo un error en el servidor. Error 500", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ArrayList<Subjet>> call, Throwable t) {
+                    Toast.makeText(getContext(), "Sin conexión", Toast.LENGTH_LONG).show();
+                }
+            });
+
+        }else {
+            sublistdic=new ArrayList<>();
+            sad= new SubjetsAdapter(getContext(), sublistdic, 2);
+            lvsub.setAdapter(sad);
+        }
+
+    }
+
+
 
     @Override
     public void onClick(View v) {
@@ -153,17 +321,24 @@ public class TeacherFragment extends Fragment  implements View.OnClickListener{
                 GetAll(parameter, 3, 1);
                 Log.d("checked", "nick");
             }
-            if (v==btnsubjet){
-                GetSubjets(parameter);
-                Log.d("checked", "subjet");
-            }
+
         }else {
             etserchname.requestFocus();
         }
         if (v==btnviewall){
+
+
             GetAll(parameter, 0, 1);
             etserchname.setText("");
-            Log.d("checked", "all");
+
+        }
+        if (v==btnmore){
+            AdapterView<?> adapt=(AdapterView<?>) dat.get(0) ;
+            View vv=(View)dat.get(1 );
+            int p=(int)dat.get(2);
+            long al=(long)dat.get(3);
+
+            Try(adapt, vv,p,al);
         }
     }
 
@@ -181,13 +356,14 @@ public class TeacherFragment extends Fragment  implements View.OnClickListener{
     }
 
     private void GetSubjets(String name){
+
         sublist = new ArrayList<>();
-        Call<ArrayList<Subjet>> call = ServiceBA.getInstance().createService(ISSubjet.class).GetAll(idUser, null, 0);
+        Call<ArrayList<Subjet>> call = ServiceBA.getInstance().createService(ISSubjet.class).GetAll(a, idUser, null, 0);
 
         if (name!=null){
             Log.d("materia", name);
 
-            call = ServiceBA.getInstance().createService(ISSubjet.class).GetAll(idUser, name, 0);
+            call = ServiceBA.getInstance().createService(ISSubjet.class).GetAll(a, idUser, name, 0);
  }
         call.enqueue(new Callback<ArrayList<Subjet>>() {
             @Override
@@ -327,4 +503,5 @@ public class TeacherFragment extends Fragment  implements View.OnClickListener{
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

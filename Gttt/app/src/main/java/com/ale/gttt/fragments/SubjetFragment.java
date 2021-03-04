@@ -42,7 +42,7 @@ public class SubjetFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private ArrayList<Subjet> viewAll;
     private String mParam1;
-    private String mParam2;
+    private String mParam2, a;
     private FloatingActionButton fab;
     private MediaPlayer mp;
     private ListView listView;
@@ -86,7 +86,9 @@ public class SubjetFragment extends Fragment {
         fab = view.findViewById(R.id.fab_subjet);
         mp = MediaPlayer.create(getContext(), R.raw.add);
         listView = view.findViewById(R.id.rvmateriasrv);
+        a= SharedPreferenceManager.getInstance(getContext()).GetToken();
         ettxtmateria=view.findViewById(R.id.ettxtmateria);
+        ettxtmateria.setSelectAllOnFocus(true);
     }
 
     public void onButtonPressed(Uri uri) {
@@ -190,7 +192,7 @@ public class SubjetFragment extends Fragment {
 
             Call<ArrayList<Subjet>> call;
 
-            call = ServiceBA.getInstance().createService(ISSubjet.class).GetAll(id, null, 0);
+            call = ServiceBA.getInstance().createService(ISSubjet.class).GetAll(a, id, null, 0);
 
             call.enqueue(new Callback<ArrayList<Subjet>>() {
                 @Override
@@ -230,7 +232,7 @@ public class SubjetFragment extends Fragment {
 
             Call<ArrayList<Subjet>> call;
 
-            call = ServiceBA.getInstance().createService(ISSubjet.class).GetAll(id, s, 0);
+            call = ServiceBA.getInstance().createService(ISSubjet.class).GetAll(a, id, s, 0);
 
             call.enqueue(new Callback<ArrayList<Subjet>>() {
                 @Override
@@ -271,7 +273,7 @@ public class SubjetFragment extends Fragment {
     }
 
     private void ShowAll(ArrayList<Subjet> list) {
-        adapter= new SubjetsAdapter(getContext(), list);
+        adapter= new SubjetsAdapter(getContext(), list, 0 );
         listView.setAdapter(adapter);
     }
 

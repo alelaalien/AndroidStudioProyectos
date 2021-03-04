@@ -7,6 +7,11 @@
     android:background="@color/colorWhite"
     tools:context=".fragments.EventFragment">
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <RelativeLayout
         android:id="@+id/relativemat"
         android:layout_width="match_parent"
@@ -16,6 +21,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
+        <TextView
+            android:id="@+id/textView34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/laye"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/Materia_" />
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="309dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/textView34"
+            android:layout_alignBottom="@+id/textView34"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="69dp"
+            android:layout_marginTop="-11dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="-10dp"
+            android:layout_toEndOf="@+id/textView34"
+            android:background="@color/colorBlack" />
+
+        <TextView
+            android:id="@+id/textView36"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/spintype"
+            android:layout_alignBottom="@+id/spintype"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="19dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="15dp"
+            android:text="@string/claseevento_"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/laye"
@@ -97,10 +140,21 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <Spinner
+            android:id="@+id/spintype"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_below="@+id/spinner2"
+            android:layout_alignStart="@+id/spinner2"
+            android:layout_alignEnd="@+id/spinner2"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/habibi"
+       />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="680dp"
-            android:layout_below="@+id/toggleButton"
+            android:layout_below="@+id/spintype"
             android:layout_marginTop="50dp">
 
             <LinearLayout
@@ -117,58 +171,9 @@
             </LinearLayout>
         </ScrollView>
 
-        <TextView
-            android:id="@+id/textView34"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/laye"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/Materia_" />
-
-        <TextView
-            android:id="@+id/textView36"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/toggleButton"
-            android:layout_alignBottom="@+id/toggleButton"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="19dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="15dp"
-            android:text="@string/claseevento_"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <ToggleButton
-            android:id="@+id/toggleButton"
-            android:layout_width="wrap_content"
-            android:layout_height="44dp"
-            android:layout_below="@+id/spinner2"
-            android:layout_alignStart="@+id/spinner2"
-            android:layout_alignEnd="@+id/spinner2"
-            android:layout_marginTop="32dp"
-            android:fontFamily="@font/habibi"
-            android:textOff="@string/etp"
-            android:textOn="@string/Tpracticos" />
-
-        <Spinner
-            android:id="@+id/spinner2"
-            android:layout_width="309dp"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/textView34"
-            android:layout_alignBottom="@+id/textView34"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="69dp"
-            android:layout_marginTop="-11dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="-10dp"
-            android:layout_toEndOf="@+id/textView34"
-            android:background="@color/colorBlack" />
-
 
     </RelativeLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

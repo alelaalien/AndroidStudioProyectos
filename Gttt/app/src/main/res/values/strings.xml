@@ -72,6 +72,14 @@
     <string name="MHORA">HORA</string>
     <string name="MTITULO">TITULO</string>
     <string name="MTEMARIO">TEMARIO</string>
+    <string name="edit">Edición</string>
+    <string name="see">ver +</string>
+    <string name="Abrir">LLevar a Edición -></string>
+    <string name="selectsub">Seleccionar Materia</string>
+    <string name="addnew">Agregar Nuevo</string>
+    <string name="mas">+</string>
+    <string name="newtype">Nueva clase de Evento</string>
+    <string name="selecttype">Seleccionar clase de Evento</string>
 
 
     <string name="Tpracticos">T. Prácticos</string>

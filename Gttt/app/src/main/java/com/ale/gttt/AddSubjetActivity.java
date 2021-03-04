@@ -6,9 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Adapter;
@@ -16,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -26,17 +22,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ale.gttt.Interfaces.ISDictates;
 import com.ale.gttt.Interfaces.ISEvent;
 import com.ale.gttt.Interfaces.ISSubjet;
-import com.ale.gttt.Interfaces.ISTeacher;
-import com.ale.gttt.Interfaces.ISUser;
 import com.ale.gttt.Session.SharedPreferenceManager;
 import com.ale.gttt.Tools.AuxAdapter;
 import com.ale.gttt.Tools.Utilities;
 import com.ale.gttt.entities.AuxiliarSch;
-import com.ale.gttt.entities.Event;
+import com.ale.gttt.entities.Dictates;
 import com.ale.gttt.entities.Subjet;
 import com.ale.gttt.entities.Teacher;
+import com.ale.gttt.entities.User;
 import com.ale.gttt.io.ServiceBA;
 import com.google.gson.Gson;
 
@@ -52,25 +48,26 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
 
     private Button btnstarttime, btnendtime, btncancelar, btnguardar,  btnaddtime, btndeletesubjet;
     private EditText etst,etet, etnombremateria;
+    private String t;
     private Spinner spindia;
     private int hour, minute;
     private TextView tvtitle;
     private AuxAdapter adapter;
     private ListView listdias;
     private CheckBox cbhc;
+    private User user;
     private  ArrayList<String> data;
-    private ArrayList<Teacher> teachlist;
+    private ArrayList<Dictates> dic;
     private ArrayList<AuxiliarSch> suplist = new ArrayList<>();
-    private String data2;
+    private String data2, a;
     private ArrayList<AuxiliarSch> values= new ArrayList<>();
     MediaPlayer pop, borrar, clic;
     private int idU;
     private Utilities u;
 
 
+
     @Override
-
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_subjet);
@@ -90,12 +87,18 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
         btnguardar=  findViewById(R.id.btnas);
         etst= findViewById(R.id.etst);
         etnombremateria=  findViewById(R.id.etnombremateria);
+        etnombremateria.requestFocus();
         spindia=  findViewById(R.id.spindia);
         listdias=  findViewById(R.id.listdias);
         cbhc=findViewById(R.id.cbhc);
+        user=SharedPreferenceManager.getInstance(getApplicationContext()).GetUser();
+         a= SharedPreferenceManager.getInstance(getApplicationContext()).GetToken();
+        dic=new ArrayList<>();
         tvtitle=findViewById(R.id.tv_title_subjet);
         idU=SharedPreferenceManager.getInstance(getApplicationContext()).GetUser().getId();
+        t=SharedPreferenceManager.getInstance(getApplicationContext()).GetUser().getToken();
         Intent dataintent= getIntent();
+
         data=dataintent.getStringArrayListExtra("arraydata");
         Config();
     }
@@ -136,6 +139,7 @@ public class AddSubjetActivity extends AppCompatActivity implements View.OnClick
         if (data!=null){
             SetTexts(1);
             CheckData();
+
         }else{
             SetTexts(0);
         }
@@ -420,7 +424,9 @@ return suplist;
     }
 
     private void Save(Subjet s){
-        Call<Void> call= ServiceBA.getInstance().createService(ISSubjet.class).Create(s);
+        Call<Void> call= ServiceBA.getInstance().createService(ISSubjet.class).Create(a, s);
+
+
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -433,6 +439,8 @@ return suplist;
                     Toast.makeText(getApplicationContext(), "Recursos no encontrados", Toast.LENGTH_LONG).show();
                 }else if(response.code()==500){
                     Toast.makeText(getApplicationContext(), "Hubo un error en el servidor. Reintentar", Toast.LENGTH_LONG).show();
+                }else if(response.code()==204){
+                    Toast.makeText(getApplicationContext(), "204", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -445,7 +453,7 @@ return suplist;
     }
 
     private void Edit(Subjet subjet) {
-        Call<Subjet> call= ServiceBA.getInstance().createService(ISSubjet.class).Update(subjet.getId(), subjet);
+        Call<Subjet> call= ServiceBA.getInstance().createService(ISSubjet.class).Update(a, subjet.getId(), subjet);
         call.enqueue(new Callback<Subjet>() {
             @Override
             public void onResponse(Call<Subjet> call, Response<Subjet> response) {
@@ -513,7 +521,8 @@ return suplist;
     }
 
     public void Delete(int id) {
-            Call<Void> call= ServiceBA.getInstance().createService(ISSubjet.class).Delete(id);
+
+            Call<Void> call= ServiceBA.getInstance().createService(ISSubjet.class).Delete(a, id);
             call.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
@@ -538,7 +547,7 @@ return suplist;
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code()==200){
-                    GetTeachers(id);
+                     DeleteRelations();
                 }else if (response.code()==404){
                     Toast.makeText(getApplicationContext(), "Recurso no encontrado", Toast.LENGTH_LONG).show();
                 }else if (response.code()==500){
@@ -556,17 +565,48 @@ return suplist;
 
     }
 
-    private void GetTeachers(int id){
-        System.out.println("getTachers");
-        teachlist= new ArrayList<>();
-        Call<ArrayList<Teacher>> call= ServiceBA.getInstance().createService(ISTeacher.class).GetAllFilters(idU, id);
-        call.enqueue(new Callback<ArrayList<Teacher>>() {
+    private void DeleteRelations() {
+
+        int idSubjet=Integer.parseInt(data.get(1));
+
+
+           Call<Void>call=ServiceBA.getInstance().createService(ISDictates.class).DeleteBySubjet(idSubjet);
+           call.enqueue(new Callback<Void>() {
+               @Override
+               public void onResponse(Call<Void> call, Response<Void> response) {
+                   if (response.code()==200){
+
+                       Delete(idSubjet);
+
+                   }else if (response.code()==404){
+                       Toast.makeText(getApplicationContext(), "Recurso no encontrado", Toast.LENGTH_LONG).show();
+                   }else if (response.code()==500){
+                       Toast.makeText(getApplicationContext(), "Error del servidor. Reintenar", Toast.LENGTH_LONG).show();
+
+                   }
+               }
+
+               @Override
+               public void onFailure(Call<Void> call, Throwable t) {
+                   Toast.makeText(getApplicationContext(), "Error "+t.getMessage(), Toast.LENGTH_LONG).show();
+
+               }
+           });
+
+
+    }
+
+    private void GetDictates(){
+        int idSubjet=Integer.parseInt(data.get(1));
+        Call<ArrayList<Dictates>> call=ServiceBA.getInstance().createService(ISDictates.class).GetAllBySubjet(idSubjet);
+        call.enqueue(new Callback<ArrayList<Dictates>>() {
             @Override
-            public void onResponse(Call<ArrayList<Teacher>> call, Response<ArrayList<Teacher>> response) {
+            public void onResponse(Call<ArrayList<Dictates>> call, Response<ArrayList<Dictates>> response) {
                 if (response.code()==200){
-                    teachlist.addAll(response.body());
-                    System.out.println("getTachers "+ teachlist.size());
-                    UpdateAll(teachlist, id);
+                    if (response.body().size()>0){
+                        dic.addAll(response.body());
+                    }
+
                 }else if (response.code()==404){
                     Toast.makeText(getApplicationContext(), "Recurso no encontrado", Toast.LENGTH_LONG).show();
                 }else if (response.code()==500){
@@ -576,61 +616,12 @@ return suplist;
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Teacher>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Error "+t.getMessage(), Toast.LENGTH_LONG).show();
+            public void onFailure(Call<ArrayList<Dictates>> call, Throwable t) {
+             Toast.makeText(getApplicationContext(), "Error "+t.getMessage(), Toast.LENGTH_LONG).show();
 
             }
         });
-
     }
 
-    private void UpdateAll(ArrayList<Teacher> teachlist,int  id) {
-        System.out.println("getTachers "+ teachlist.size());
-        for (Teacher t: teachlist
-             ) {
-            t.setSubjet(0);
-        }
-        EditTeachers(teachlist, id );
-
-    }
-
-    private void EditTeachers(ArrayList<Teacher> teachlist,int id) {
-
-        for (Teacher t:teachlist) {
-           UpdateTeachers(t.getId(), t);
-
-        }
-
-        Delete(id);
-        u.ClearTask(getApplicationContext());
-    }
-
-    private void UpdateTeachers(Integer id, Teacher t) {
-
-        Call<Void> call=ServiceBA.getInstance().createService(ISTeacher.class).Update(id, t);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.code()==200){
-                    Toast.makeText(getApplicationContext(), "Docentes actualizados", Toast.LENGTH_LONG).show();
-
-                }else if (response.code()==404){
-                    Toast.makeText(getApplicationContext(), "Recurso no encontrado", Toast.LENGTH_LONG).show();
-
-                }else if (response.code()==500){
-                    Toast.makeText(getApplicationContext(), "Error del servidor: 500", Toast.LENGTH_LONG).show();
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Sin conexión", Toast.LENGTH_LONG).show();
-
-            }
-        });
-
-    }
 
 }
